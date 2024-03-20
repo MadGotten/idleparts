@@ -1,6 +1,7 @@
 const express = require('express')
 const mongoose = require('mongoose')
 const dotenv = require('dotenv')
+const path = require('path');
 const app = express()
 const cors = require('cors')
 const session = require('express-session')
@@ -17,7 +18,12 @@ const account = require('./routes/account')
 const cart = require('./routes/cart')
 const category = require('./routes/category')
 
-dotenv.config()
+if (process.env.NODE_ENV === 'production') {
+  dotenv.config({ path: path.resolve(__dirname, '.env') });
+} else {
+  dotenv.config({ path: path.resolve(__dirname, '.env.development') });
+}
+
 app.use(cors({
   origin: process.env.FRONTEND_DOMAIN,
   credentials: true,

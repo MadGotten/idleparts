@@ -34,7 +34,7 @@ function Navbar() {
   return (
     <div className="flex flex-row items-center sm:justify-between gap-6 sm:gap-4">
       <div className="flex flex-row gap-6 sm:gap-8 w-full">
-        <Link to=".."><img src="/logo.png" alt="logo" className="w-16 h-8"/></Link>
+        <Link to="/"><img src="/logo.png" alt="logo" className="w-16 h-8"/></Link>
         <div className="flex flex-row w-full">
           <input type="search" 
             placeholder="Search..." 
@@ -54,12 +54,12 @@ function Navbar() {
       </div>
       <ul className="hidden md:flex flex-row items-center gap-6">
         <li className="flex w-8 text-2xl hover:text-blue-600"><button className="w-full h-full"><i className="fa-regular fa-comment"></i></button></li>
-        <Link to="../account/wishlist" className="hover:text-blue-600">
+        <Link to="/account/wishlist" className="hover:text-blue-600">
           <li className="flex w-8 text-2xl relative">
             <button className="w-full h-full"><i className="fa-regular fa-heart"></i></button>
           </li>
         </Link>
-        <Link to="../cart" className="hover:text-blue-600">
+        <Link to="/cart" className="hover:text-blue-600">
           <li className="flex w-8 text-2xl relative"><button className="w-full h-full">
             {cartProducts.length>0 &&
               <div className="w-5 h-5 rounded-full bg-blue-600 text-white absolute left-5 bottom-4 text-sm flex justify-center items-center">{cartProducts.length}</div>
@@ -77,8 +77,8 @@ function Navbar() {
                   <p className="text-sm text-center font-medium">{user.user}</p>
                   <button onClick={Logout} className="bg-blue-600 hover:bg-blue-700 rounded-lg text-center p-2 text-sm text-slate-200">Logout</button>
                   <hr className="h-px mt-2 bg-gray-200 border-0"/>
-                  <Link to=".." className="flex flex-row items-center gap-2"><i className="fa-regular fa-user text-base"></i><span>Your account</span></Link>
-                  <Link to="../account/orders" className="flex flex-row items-center gap-2"><i className="fa-regular fa-clipboard text-base"></i><span>Your orders</span></Link>
+                  <Link to="/" className="flex flex-row items-center gap-2"><i className="fa-regular fa-user text-base"></i><span>Your account</span></Link>
+                  <Link to="/account/orders" className="flex flex-row items-center gap-2"><i className="fa-regular fa-clipboard text-base"></i><span>Your orders</span></Link>
                 </>)
                 :
                 <Link to="/login" className="bg-blue-600 hover:bg-blue-700 rounded-lg text-center p-2 text-sm text-slate-200">Log In</Link>
@@ -95,9 +95,9 @@ function Navbar() {
         </div>
         <ul className="flex flex-col items-center gap-1">
           <li><a href=" ">Profile</a></li>
-          <Link to="../cart"><li>Cart</li></Link>
-          <Link to="../account/orders"><li>Orders</li></Link>
-          <Link to="../account/wishlist"><li>Wishlist</li></Link>
+          <Link to="/cart"><li>Cart</li></Link>
+          <Link to="/account/orders"><li>Orders</li></Link>
+          <Link to="/account/wishlist"><li>Wishlist</li></Link>
           <li><a href=" ">Support</a></li>
         </ul>
         <div className="text-xl">
@@ -105,7 +105,7 @@ function Navbar() {
         </div>
         <ul className="flex flex-col pl-4 gap-1">
           {categories.map((category) => 
-            <a className="w-36" href={'../c/'+category.value} key={category.value}><li className="flex flex-row justify-between items-center">{category.title}<i className="fa-solid fa-chevron-right text-xs"></i></li></a>
+            <a className="w-36" href={'/c/'+category.value} key={category.value}><li className="flex flex-row justify-between items-center">{category.title}<i className="fa-solid fa-chevron-right text-xs"></i></li></a>
           )}
         </ul>
       </div>

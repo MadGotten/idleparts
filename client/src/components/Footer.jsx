@@ -32,7 +32,7 @@ const Footer = () => {
         </ul>
       </div>
       <div className="flex flex-row text-sm md:text-base justify-between mt-auto">
-        <Link to=".."><img src="/logo.svg" alt="logo" className="w-16 h-8"/></Link>
+        <Link to="/"><img src="/logo.svg" alt="logo" className="w-16 h-8"/></Link>
         <p className='flex items-center'>@ 2022 Idleparts. All rights reserved.</p>
       </div>
       </div>

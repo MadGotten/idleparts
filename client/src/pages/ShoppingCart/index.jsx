@@ -68,7 +68,7 @@ function App() {
               <div className="flex flex-col gap-6">
               {products.map(products => (
                 <div key={products._id} className="flex gap-4 p-4 bg-slate-50 shadow-md drop-shadow-md rounded-lg">
-                  <Link to={'../p/'+products._id}>
+                  <Link to={'/p/'+products._id}>
                     <img src={`${process.env.REACT_APP_DOMAIN}/${products.img}`} alt="cpu" className="w-28 h-auto object-contain"></img>
                   </Link>
                   <div className="flex flex-col justify-between w-52 lg:w-64 min-h-[8rem] items-end">

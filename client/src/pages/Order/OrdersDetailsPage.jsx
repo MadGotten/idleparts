@@ -41,7 +41,7 @@ function Orders() {
                 {data.products.map((product) => {
                     return (
                       <div className='flex w-[400px] gap-4 p-4 bg-slate-50 shadow-md drop-shadow-md rounded-lg' key={product.product_id._id}>
-                         <Link to={'../p/'+product.product_id._id}>
+                         <Link to={'/p/'+product.product_id._id}>
                         <div className="w-[5rem] h-[5rem] flex items-center">
                           <img src={`${process.env.REACT_APP_DOMAIN}/${product.product_id.img}`} alt={product.product_id.name} className="w-full h-full"></img>
                         </div>

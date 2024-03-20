@@ -52,7 +52,7 @@ function WishlistPage() {
             wishlist.map((product) => {
               return (
                   <div className='flex justify-between gap-4 p-4 bg-slate-50 shadow-md drop-shadow-md rounded-lg' key={product._id}>
-                      <Link to={'../p/'+product._id}>
+                      <Link to={'/p/'+product._id}>
                           <div className="w-[5rem] h-[5rem] flex items-center">
                               <img src={`${process.env.REACT_APP_DOMAIN}/${product.img}`} alt={product.name} className="w-full h-full"></img>
                           </div>

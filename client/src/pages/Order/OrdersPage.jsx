@@ -36,7 +36,7 @@ function Orders() {
                 {data[0].filter(order => new Date(order.created_at).toLocaleDateString() === date).map((order) => {
                   return (
                       <div className='flex flex-row justify-between' key={order._id}>
-                        <Link to={'../account/orders/'+order._id} className='text-blue-600'>
+                        <Link to={'/account/orders/'+order._id} className='text-blue-600'>
                             Order #{order._id}
                         </Link>
                         <p className='w-20'>

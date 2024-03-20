@@ -1,6 +1,7 @@
 import React, {useContext, useEffect} from 'react'
 import { useQuery } from 'react-query'
 import { useLocation } from "react-router-dom"
+import { useParams } from 'react-router'
 import Navbar from '../../components/Navbar'
 import Categories from '../../components/Categories'
 import CartContext from '../../context/CartContext'
@@ -10,14 +11,16 @@ import Pagination from '../../components/Pagination'
 const App = () => {
   const {addProduct} = useContext(CartContext)
   const {search} = useLocation()
-  const {isLoading, data, status, refetch} = useQuery(['products_paginate', search], () => getProducts(), { refetchOnWindowFocus: false, keepPreviousData : true })
+  const {category} = useParams()
+
+  const {isLoading, data, status, refetch} = useQuery(['products_paginate', category, search], () => getProducts(), { refetchOnWindowFocus: false, keepPreviousData : true })
 
   useEffect(() => {
     refetch();
   }, [search, refetch])
 
   async function getProducts(){
-    const response = await fetch(`${process.env.REACT_APP_DOMAIN}/category/`+window.location.pathname.split('/')[2]+search, {
+    const response = await fetch(`${process.env.REACT_APP_DOMAIN}/category/`+category+search, {
         method: 'GET',
         headers: { 'Content-Type': 'application/json', },
         mode: 'cors',

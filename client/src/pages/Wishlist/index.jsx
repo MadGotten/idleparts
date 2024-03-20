@@ -4,7 +4,7 @@ import { Link } from "react-router-dom"
 import Navbar from '../../components/Navbar'
 
 const getWishlist = async () => {
-	const response = await fetch('http://localhost:5000/account/wishlist', {
+	const response = await fetch(`${process.env.REACT_APP_DOMAIN}/account/wishlist`, {
 			method: 'GET',
 			headers: { 'Content-Type': 'application/json', },
 			mode: 'cors',
@@ -26,7 +26,7 @@ function WishlistPage() {
 		})
 		SetWishlist(updatedWishlist)
 
-		await fetch('http://localhost:5000/account/wishlist/'+productId, {
+		await fetch(`${process.env.REACT_APP_DOMAIN}/account/wishlist/`+productId, {
 				method: 'DELETE',
 				headers: { 'Content-Type': 'application/json', },
 				mode: 'cors',

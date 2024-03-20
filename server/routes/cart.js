@@ -47,7 +47,7 @@ router.post('/checkout', async (req, res) => {
                     return res.sendStatus(400)
                 } else {
                     productsToProcess.push({ _id: product._id, stock: newStock })
-                    price += Number(product.price * foundProduct.quantity).toFixed(2)
+                    price += Number(product.price * foundProduct.quantity)
                 }
             }
         }
@@ -58,7 +58,7 @@ router.post('/checkout', async (req, res) => {
 
         history = await Order.create({
             user_id: req.session.user_id,
-            price: price,
+            price: Number(price).toFixed(2),
             products: products,
             created_at: new Date()
         })

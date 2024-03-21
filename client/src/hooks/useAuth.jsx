@@ -49,6 +49,7 @@ export async function logoutUser(){
         headers: { 'Content-Type': 'application/json', },
         mode: 'cors',
         credentials: 'include',
+        cache: 'no-cache'
     })
 
     const data = await response?.json();

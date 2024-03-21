@@ -18,6 +18,9 @@ router.get('/', async (req, res) => {
 })
 
 router.get('/search', async (req, res) => {
+    if (!req.query.search) { 
+      return res.status(200).json({ items: []}) 
+    }
     const searchQuery = req.query.search.trim()
     const searchContext = searchQuery.split(/\s+/)
     const regex = searchContext.map(word => new RegExp(word, 'i'))
@@ -29,7 +32,7 @@ router.get('/search', async (req, res) => {
         if (products && products.length > 0) {
           res.status(200).json({ items: products })
         } else {
-          res.sendStatus(400)
+          res.status(200).json({ items: []})
         }
       } catch (error) {
         console.error(error)

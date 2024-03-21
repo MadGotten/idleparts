@@ -17,11 +17,13 @@ const products = require('./routes/products')
 const account = require('./routes/account')
 const cart = require('./routes/cart')
 const category = require('./routes/category')
+const secureCookie = true
 
 if (process.env.NODE_ENV === 'production') {
   dotenv.config({ path: path.resolve(__dirname, '.env') });
 } else {
   dotenv.config({ path: path.resolve(__dirname, '.env.development') });
+  secureCookie = false
 }
 
 app.use(cors({
@@ -42,7 +44,7 @@ app.use(session({
     mongoUrl: process.env.MONGO_URL,
     ttl: 365 * 24 * 60 * 60
   }),
-  cookie: { secure:false,httpOnly: true, maxAge:365*24*60*60*1000, sameSite: 'lax'}
+  cookie: { secure:secureCookie ,httpOnly: true, maxAge:365*24*60*60*1000, sameSite: 'lax'}
 }))
 
 mongoose.set('strictQuery', true);

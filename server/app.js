@@ -17,13 +17,12 @@ const products = require('./routes/products')
 const account = require('./routes/account')
 const cart = require('./routes/cart')
 const category = require('./routes/category')
-const secureCookie = true
 
 if (process.env.NODE_ENV === 'production') {
   dotenv.config({ path: path.resolve(__dirname, '.env') });
+  app.set('trust proxy', 1);
 } else {
   dotenv.config({ path: path.resolve(__dirname, '.env.development') });
-  secureCookie = false
 }
 
 app.use(cors({
@@ -39,12 +38,14 @@ app.use(express.urlencoded({ extended: true}))
 app.use(session({
   secret: process.env.SECRET,
   resave: false,
+  proxy: process.env.NODE_ENV === 'production',
   saveUninitialized: false,
+  rolling: true,
   store:  MongoStore.create({
     mongoUrl: process.env.MONGO_URL,
     ttl: 365 * 24 * 60 * 60
   }),
-  cookie: { secure:secureCookie ,httpOnly: true, maxAge:365*24*60*60*1000, sameSite: 'lax'}
+  cookie: { secure: process.env.NODE_ENV === 'production',httpOnly: true, maxAge:365*24*60*60*1000, sameSite: 'lax'}
 }))
 
 mongoose.set('strictQuery', true);
@@ -54,6 +55,7 @@ mongoose.connect(process.env.MONGO_URL)
 
     Product.deleteMany({}).then(() => {
       Product.create(populateProducts)
+      console.log("Products populated successfully.");
     })
     User.deleteMany({}).exec()
     Order.deleteMany({}).exec()

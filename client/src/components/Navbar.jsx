@@ -1,9 +1,11 @@
 import React, { useState, useContext } from 'react'
 import { Link, useNavigate } from "react-router-dom"
-import { AuthContext } from '../context/AuthContext';
-import { logoutUser } from '../hooks/useAuth';
-import { categories } from '../assets/constants';
-import CartContext from '../context/CartContext';
+import { AuthContext } from '../context/AuthContext'
+import { logoutUser } from '../hooks/useAuth'
+import { categories } from '../assets/constants'
+import CartContext from '../context/CartContext'
+const logoUrl = new URL('../assets/images/logo.png', import.meta.url).href
+const userUrl = new URL('../assets/images/user.png', import.meta.url).href
 
 function Navbar() {
   const [user, setUser] = useContext(AuthContext);
@@ -34,7 +36,7 @@ function Navbar() {
   return (
     <div className="flex flex-row items-center sm:justify-between gap-6 sm:gap-4">
       <div className="flex flex-row gap-6 sm:gap-8 w-full">
-        <Link to="/"><img src={require('../assets/images/logo.png')} alt="logo" className="w-16 h-8"/></Link>
+        <Link to="/"><img src={logoUrl} alt="logo" className="w-16 h-8"/></Link>
         <div className="flex flex-row w-full">
           <input type="search" 
             placeholder="Search..." 
@@ -69,7 +71,7 @@ function Navbar() {
         </Link>
         <div className="w-1 h-5 mx-5 border-r border-gray-300"></div>
         <div className="group relative">
-          <li className="w-8 h-8"><img src={require('../assets/images/user.png')} alt="profile" className="h-full"/></li>
+          <li className="w-8 h-8"><img src={userUrl} alt="profile" className="h-full"/></li>
           <div className="hidden group-hover:block absolute drop-shadow-md w-60 bg-white z-10 rounded-tr-md rounded-br-md rounded-bl-md right-0 p-4">
             <div className="flex flex-col items gap-2 text-sm">
               {user ?

@@ -7,7 +7,7 @@ import Product from '../../components/Product'
 import Skeleton from '../../components/Skeleton'
 
 async function getProducts(){
-  const response = await fetch(`${process.env.REACT_APP_DOMAIN}/products`, {
+  const response = await fetch(`${import.meta.env.VITE_APP_DOMAIN}/products`, {
       method: 'GET',
       headers: { 'Content-Type': 'application/json', },
       mode: 'cors',

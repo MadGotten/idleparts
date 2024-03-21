@@ -4,7 +4,7 @@ import { Link } from "react-router-dom"
 import Navbar from '../../components/Navbar'
 
 const getWishlist = async () => {
-	const response = await fetch(`${process.env.REACT_APP_DOMAIN}/account/wishlist`, {
+	const response = await fetch(`${import.meta.env.VITE_APP_DOMAIN}/account/wishlist`, {
 			method: 'GET',
 			headers: { 'Content-Type': 'application/json', },
 			mode: 'cors',
@@ -26,7 +26,7 @@ function WishlistPage() {
 		})
 		SetWishlist(updatedWishlist)
 
-		await fetch(`${process.env.REACT_APP_DOMAIN}/account/wishlist/`+productId, {
+		await fetch(`${import.meta.env.VITE_APP_DOMAIN}/account/wishlist/`+productId, {
 				method: 'DELETE',
 				headers: { 'Content-Type': 'application/json', },
 				mode: 'cors',
@@ -54,7 +54,7 @@ function WishlistPage() {
                   <div className='flex justify-between gap-4 p-4 bg-slate-50 shadow-md drop-shadow-md rounded-lg' key={product._id}>
                       <Link to={'/p/'+product._id}>
                           <div className="w-[5rem] h-[5rem] flex items-center">
-                              <img src={`${process.env.REACT_APP_DOMAIN}/${product.img}`} alt={product.name} className="w-full h-full"></img>
+                              <img src={`${import.meta.env.VITE_APP_DOMAIN}/${product.img}`} alt={product.name} className="w-full h-full"></img>
                           </div>
                       </Link>
                       <div className='flex flex-col justify-between j text-end'>

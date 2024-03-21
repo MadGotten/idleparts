@@ -9,7 +9,6 @@ export const AuthProvider = ({ children }) => {
     useEffect(() => {
 		if(user){
 			getUser().then(currentUser => {
-				console.log("user: ", currentUser.credentials);
 				if (currentUser.credentials) {
 					localStorage.setItem('user', JSON.stringify(currentUser.credentials));
 					setUser(currentUser.credentials);

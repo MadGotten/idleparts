@@ -1,22 +1,5 @@
-//import { useState, useEffect } from 'react';
-/*
-export const getUser1 = async (username, password) => {
-	const response = await api.post('login', {
-		username,
-		password
-	});
-
-	const token = response.data.token;
-	if (token) {
-		localStorage.setItem('user', JSON.stringify(response.data));
-	}
-
-	return response.data;
-};
-*/
-
 export async function getUser(){
-    const response = await fetch(`${process.env.REACT_APP_DOMAIN}/users/authenticate`, {
+    const response = await fetch(`${import.meta.env.VITE_APP_DOMAIN}/users/authenticate`, {
         method: 'GET',
         headers: { 'Content-Type': 'application/json', },
         mode: 'cors',
@@ -28,7 +11,7 @@ export async function getUser(){
 }
 
 export async function loginUser(email, password){
-    const response = await fetch(`${process.env.REACT_APP_DOMAIN}/users/login`, {
+    const response = await fetch(`${import.meta.env.VITE_APP_DOMAIN}/users/login`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json', },
         mode: 'cors',
@@ -44,7 +27,7 @@ export async function loginUser(email, password){
 }
 
 export async function registerUser(email, password, password2){
-    const response = await fetch(`${process.env.REACT_APP_DOMAIN}/users/register`, {
+    const response = await fetch(`${import.meta.env.VITE_APP_DOMAIN}/users/register`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json', },
         mode: 'cors',
@@ -61,7 +44,7 @@ export async function registerUser(email, password, password2){
 }
 
 export async function logoutUser(){
-    const response = await fetch(`${process.env.REACT_APP_DOMAIN}/users/logout`, {
+    const response = await fetch(`${import.meta.env.VITE_APP_DOMAIN}/users/logout`, {
         method: 'GET',
         headers: { 'Content-Type': 'application/json', },
         mode: 'cors',

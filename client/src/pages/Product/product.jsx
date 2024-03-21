@@ -4,7 +4,7 @@ import Navbar from '../../components/Navbar'
 import CartContext from '../../context/CartContext'
 
 async function getProduct(){
-  const response = await fetch(`${process.env.REACT_APP_DOMAIN}/products/`+window.location.pathname.slice(3), {
+  const response = await fetch(`${import.meta.env.VITE_APP_DOMAIN}/products/`+window.location.pathname.slice(3), {
       method: 'GET',
       headers: { 'Content-Type': 'application/json', },
       mode: 'cors',
@@ -15,7 +15,7 @@ async function getProduct(){
 }
 
 async function addWishlist(productId){
-  const response = await fetch(`${process.env.REACT_APP_DOMAIN}/account/wishlist`, {
+  const response = await fetch(`${import.meta.env.VITE_APP_DOMAIN}/account/wishlist`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       mode: 'cors',
@@ -42,7 +42,7 @@ function Product() {
           <div className="flex flex-col sm:flex-row w-full gap-4">
             <div className="flex flex-col md:flex-row gap-x-2 gap-y-4 md:justify-between h-auto w-full sm:w-2/3 p-4 bg-slate-50 shadow-md drop-shadow-md rounded-lg">
               <div className="flex justify-center md:justify-start md:w-1/2">
-                <img src={`${process.env.REACT_APP_DOMAIN}/${data.img}`} alt="component_image" className="md:max-w-full md:max-h-[220px] h-auto"></img>
+                <img src={`${import.meta.env.VITE_APP_DOMAIN}/${data.img}`} alt="component_image" className="md:max-w-full md:max-h-[220px] h-auto"></img>
               </div>
               <div className="md:w-1/2">
                 <h1 className="font-semibold text-lg md:text-xl">{data.name}</h1>

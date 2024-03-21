@@ -16,7 +16,7 @@ const Search = () => {
     }, [search, refetch]);
 
     async function getProducts(){
-        const response = await fetch(`${process.env.REACT_APP_DOMAIN}/products/search`+ search, {
+        const response = await fetch(`${import.meta.env.VITE_APP_DOMAIN}/products/search`+ search, {
             method: 'GET',
             headers: { 'Content-Type': 'application/json', },
             mode: 'cors',

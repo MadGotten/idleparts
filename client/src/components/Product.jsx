@@ -7,7 +7,7 @@ const Product = (props) => {
   return (
     <Link to={'/p/'+product._id} className="w-[9rem] h-[12rem] sm:w-[11rem] sm:h-[13rem] md:w-52 md:h-60 shrink-0 bg-slate-50 shadow-md drop-shadow-md rounded-lg flex items-center flex-col p-2">
       <div className="w-[5rem] h-[5rem] sm:w-[6rem] sm:h-[6rem] md:w-[7.5rem] md:h-[7.5rem]">
-        <img src={`${process.env.REACT_APP_DOMAIN}/${product.img}`} alt={product.category} className="max-w-full md:max-w-[7rem] h-auto"></img>
+        <img src={`${import.meta.env.VITE_APP_DOMAIN}/${product.img}`} alt={product.category} className="max-w-full md:max-w-[7rem] h-auto"></img>
       </div>
       <div className="h-full w-full flex flex-col justify-end px-4">
         <h2 className="font-semibold text-sm sm:text-base">{product.price}$</h2>

@@ -10,7 +10,7 @@ function App() {
   const [total,setTotal] = useState(0);
   useEffect(() => {
     if (cartProducts.length > 0){
-        fetch(`${process.env.REACT_APP_DOMAIN}/cart`, {
+        fetch(`${import.meta.env.VITE_APP_DOMAIN}/cart`, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json', },
             mode: 'cors',
@@ -38,7 +38,7 @@ function App() {
   }, [cartProducts, products])
 
   const buyproducts = async () => {
-    const response = await fetch(`${process.env.REACT_APP_DOMAIN}/cart/checkout`, {
+    const response = await fetch(`${import.meta.env.VITE_APP_DOMAIN}/cart/checkout`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json', },
       mode: 'cors',
@@ -69,7 +69,7 @@ function App() {
               {products.map(products => (
                 <div key={products._id} className="flex gap-4 p-4 bg-slate-50 shadow-md drop-shadow-md rounded-lg">
                   <Link to={'/p/'+products._id}>
-                    <img src={`${process.env.REACT_APP_DOMAIN}/${products.img}`} alt="cpu" className="w-28 h-auto object-contain"></img>
+                    <img src={`${import.meta.env.VITE_APP_DOMAIN}/${products.img}`} alt="cpu" className="w-28 h-auto object-contain"></img>
                   </Link>
                   <div className="flex flex-col justify-between w-52 lg:w-64 min-h-[8rem] items-end">
                     <div className="flex flex-row items-start gap-3">

@@ -4,7 +4,7 @@ import { Link, useParams } from "react-router-dom"
 import Navbar from '../../components/Navbar'
 
 const getOrderDetails = async (id) => {
-    const response = await fetch(`${process.env.REACT_APP_DOMAIN}/account/orders/`+id, {
+    const response = await fetch(`${import.meta.env.VITE_APP_DOMAIN}/account/orders/`+id, {
         method: 'GET',
         headers: { 'Content-Type': 'application/json', },
         mode: 'cors',
@@ -43,7 +43,7 @@ function Orders() {
                       <div className='flex w-[400px] gap-4 p-4 bg-slate-50 shadow-md drop-shadow-md rounded-lg' key={product.product_id._id}>
                          <Link to={'/p/'+product.product_id._id}>
                         <div className="w-[5rem] h-[5rem] flex items-center">
-                          <img src={`${process.env.REACT_APP_DOMAIN}/${product.product_id.img}`} alt={product.product_id.name} className="w-full h-full"></img>
+                          <img src={`${import.meta.env.VITE_APP_DOMAIN}/${product.product_id.img}`} alt={product.product_id.name} className="w-full h-full"></img>
                         </div>
                         </Link>
                         <div className='flex flex-col items-end w-full text-end justify-between'>

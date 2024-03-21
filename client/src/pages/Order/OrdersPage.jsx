@@ -4,7 +4,7 @@ import { Link } from "react-router-dom"
 import Navbar from '../../components/Navbar'
 
 const getOrders = async () => {
-    const response = await fetch(`${process.env.REACT_APP_DOMAIN}/account/orders`, {
+    const response = await fetch(`${import.meta.env.VITE_APP_DOMAIN}/account/orders`, {
         method: 'GET',
         headers: { 'Content-Type': 'application/json', },
         mode: 'cors',

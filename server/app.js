@@ -42,7 +42,7 @@ app.use(session({
     mongoUrl: process.env.MONGO_URL,
     ttl: 365 * 24 * 60 * 60
   }),
-  cookie: { secure:false,httpOnly: true, maxAge:365*24*60*60*1000}
+  cookie: { secure:false,httpOnly: true, maxAge:365*24*60*60*1000, sameSite: 'lax'}
 }))
 
 mongoose.set('strictQuery', true);

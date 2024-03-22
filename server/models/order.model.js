@@ -12,6 +12,8 @@ const Order = new mongoose.Schema({
     { collection: 'orders' }
 )
 
+Order.index({ user_id: 1 ,created_at: 1 });
+
 const model = mongoose.model('Orders', Order)
 
 module.exports = model

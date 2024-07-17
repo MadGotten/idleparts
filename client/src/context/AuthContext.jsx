@@ -1,33 +1,34 @@
-import React, { useState, useEffect, createContext } from 'react';
+import React, { useState, useEffect, createContext, useCallback } from 'react';
 import { getUser } from '../hooks/useAuth';
 
 export const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
-	const localUser = JSON.parse(localStorage.getItem('user')) || undefined;
-	const [ user, setUser ] = useState(localUser);
-    useEffect(() => {
-		if(user){
-			getUser().then(currentUser => {
-				if (currentUser.credentials) {
-					localStorage.setItem('user', JSON.stringify(currentUser.credentials));
-					setUser(currentUser.credentials);
-				} else {
-					localStorage.removeItem('user')
-				}
-			}).catch((err) => {
-				console.error('Error fetching user:', err)
-			})
-		}
-    // eslint-disable-next-line
-    }, []);
+  const [user, setUser] = useState(() => {
+    return JSON.parse(localStorage.getItem('user')) || null;
+  });
 
-	return (
-		<AuthContext.Provider value={[user, setUser]}>
-			{ children }
-		</AuthContext.Provider>
-	);
+  const fetchUser = useCallback(async () => {
+    try {
+      const currentUser = await getUser();
+      if (currentUser.credentials) {
+        localStorage.setItem('user', JSON.stringify(currentUser.credentials));
+        setUser(currentUser.credentials);
+      } else {
+        localStorage.removeItem('user');
+      }
+    } catch (err) {
+      console.error('Error fetching user:', err);
+    }
+  }, []);
+
+  useEffect(() => {
+    if (user) {
+      fetchUser();
+    }
+  }, []);
+
+  return <AuthContext.Provider value={[user, setUser]}>{children}</AuthContext.Provider>;
 };
-
 
 export default AuthContext;

@@ -1,13 +1,12 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import { useQuery } from 'react-query';
-import Navbar from '../../components/Navbar';
 import Categories from '../../components/Categories';
 import CartContext from '../../context/CartContext';
 import ProductCard from '../../components/ProductCard';
 import Spinner from '../../components/Spinner';
 
-const Search = () => {
+const SearchPage = () => {
   const { addProduct } = useContext(CartContext);
   const { search } = useLocation();
   const [fetchStart, setFetchStart] = useState(Date.now());
@@ -35,27 +34,24 @@ const Search = () => {
   }
 
   return (
-    <div className='py-4 px-4 sm:px-8 flex flex-col gap-8 mb-24'>
-      <Navbar />
-      <div className='flex flex-row justify-start gap-12'>
-        <Categories />
-        <div className='flex flex-col pl-4 flex-nowrap mt-4 gap-6 sm:gap-8'>
-          {ShowSpinner && <Spinner />}
+    <div className='flex flex-row justify-start gap-12'>
+      <Categories />
+      <div className='flex flex-col pl-4 flex-nowrap mt-4 gap-6 sm:gap-8'>
+        {ShowSpinner && <Spinner />}
 
-          {status === 'error' && <div>Error fetching products</div>}
+        {status === 'error' && <div>Error fetching products</div>}
 
-          {status === 'success' &&
-            data &&
-            data.length > 0 &&
-            data.map((items, i) => <ProductCard key={i} items={items} addProduct={addProduct} />)}
+        {status === 'success' &&
+          data &&
+          data.length > 0 &&
+          data.map((items, i) => <ProductCard key={i} items={items} addProduct={addProduct} />)}
 
-          {status === 'success' && (!data || data.length === 0) && (
-            <p>There are no products named: "{decodeURI(search.slice(8))}"</p>
-          )}
-        </div>
+        {status === 'success' && (!data || data.length === 0) && (
+          <p>There are no products named: "{decodeURI(search.slice(8))}"</p>
+        )}
       </div>
     </div>
   );
 };
 
-export default Search;
+export default SearchPage;

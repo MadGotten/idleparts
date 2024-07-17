@@ -3,7 +3,6 @@ import { AuthContext } from '../context/AuthContext';
 import { loginUser } from '../hooks/useAuth';
 
 function Login() {
-  // eslint-disable-next-line no-unused-vars
   const [user, setUser] = useContext(AuthContext);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');

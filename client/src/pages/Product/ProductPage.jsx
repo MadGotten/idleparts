@@ -1,7 +1,6 @@
 import React, { useContext } from 'react';
 import { useQuery } from 'react-query';
 import { useParams } from 'react-router';
-import Navbar from '../../components/Navbar';
 import CartContext from '../../context/CartContext';
 
 async function getProduct() {
@@ -31,14 +30,13 @@ async function addWishlist(productId) {
   return data.wishlist;
 }
 
-function Product() {
+function ProductPage() {
   const { product_id } = useParams();
   const { isLoading, data, status } = useQuery(['product', product_id], getProduct);
   const { addProduct } = useContext(CartContext);
 
   return (
-    <div className='py-4 px-4 sm:px-8 flex flex-col gap-8 mb-24'>
-      <Navbar />
+    <>
       {status === 'error' || isLoading ? (
         <></>
       ) : (
@@ -46,7 +44,7 @@ function Product() {
           <div className='flex flex-col md:flex-row gap-x-2 gap-y-4 md:justify-between h-auto w-full sm:w-2/3 p-4 bg-slate-50 shadow-md drop-shadow-md rounded-lg'>
             <div className='flex justify-center md:justify-start md:w-1/2'>
               <img
-                src={`${import.meta.env.VITE_APP_DOMAIN}/${data.img}`}
+                src={`${import.meta.env.VITE_APP_DOMAIN}/static/${data.img}`}
                 alt='component_image'
                 className='md:max-w-full md:max-h-[220px] h-auto'
               ></img>
@@ -79,8 +77,8 @@ function Product() {
           </div>
         </div>
       )}
-    </div>
+    </>
   );
 }
 
-export default Product;
+export default ProductPage;

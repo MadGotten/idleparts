@@ -1,8 +1,10 @@
 const express = require('express');
+const csrf = require('csurf');
 const User = require('../models/user.model');
 const { body, validationResult } = require('express-validator');
 const bcrypt = require('bcrypt');
 const router = express.Router();
+const csrfProtect = csrf({ cookie: true });
 
 const hashPassword = async (password) => {
   const salt = await bcrypt.genSalt(10);
@@ -39,10 +41,8 @@ router.get('/authenticate', async (req, res) => {
 
 router.post(
   '/login',
-  validate([
-    body('email').trim().isEmail().withMessage('Please enter a valid email'),
-    body('password'),
-  ]),
+  csrfProtect,
+  [body('email').trim().isEmail().withMessage('Please enter a valid email'), body('password')],
   async (req, res) => {
     const { email, password } = req.body;
     const user = await User.findOne({
@@ -64,6 +64,7 @@ router.post(
 
 router.post(
   '/register',
+  csrfProtect,
   validate([
     body('email').trim().isEmail().withMessage('Please enter a valid email'),
     body('password')
@@ -96,9 +97,14 @@ router.post(
   }
 );
 
-router.get('/logout', async (req, res) => {
+router.post('/logout', csrfProtect, async (req, res) => {
   try {
-    req.session.destroy(function (err) {
+    req.session.destroy((err) => {
+      if (err) {
+        console.error(err);
+        return res.status(500).json({ status: false, msg: 'There was an error while logging out' });
+      }
+
       res.clearCookie('connect.sid');
       res.status(200).json({ status: true, msg: 'You have been logged out' });
     });

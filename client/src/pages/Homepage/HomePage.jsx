@@ -1,6 +1,5 @@
 import React, { useState, useRef } from 'react';
 import { useQuery } from 'react-query';
-import Navbar from '../../components/Navbar';
 import Categories from '../../components/Categories';
 import ImgSlider from '../../components/ImgSlider';
 import Product from '../../components/Product';
@@ -17,7 +16,7 @@ async function getProducts() {
   return data.items;
 }
 
-const App = () => {
+const HomePage = () => {
   const { isLoading, data, status } = useQuery('products', () => getProducts());
 
   const [translateXpBest, setTranslateXpBest] = useState(0);
@@ -47,8 +46,7 @@ const App = () => {
   }
 
   return (
-    <div className='py-4 px-4 sm:px-8 flex flex-col gap-8 mb-24'>
-      <Navbar />
+    <>
       <div className='flex flex-row w-full gap-4'>
         <Categories />
         <ImgSlider />
@@ -123,8 +121,8 @@ const App = () => {
           </div>
         </div>
       </div>
-    </div>
+    </>
   );
 };
 
-export default App;
+export default HomePage;

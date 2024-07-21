@@ -1,191 +1,191 @@
 [
-    {
-      "name": "ASUS ROG STRIX B550-F GAMING",
-      "price": 209.99,
-      "rating": "4.5",
-      "img": "images/mobo1.jpg",
-      "filter": "Newest",
-      "stock": 15,
-      "category": "mobo"
-    },
-    {
-      "name": "ASrock B550M Steel Legend",
-      "price": 169.99,
-      "rating": "4",
-      "img": "images/mobo2.jpg",
-      "filter": "Bestseller",
-      "stock": 7,
-      "category": "mobo"
-    },
-    {
-      "name": "MSI B560M PRO-E",
-      "price": 129.99,
-      "rating": "2.5",
-      "img": "images/mobo3.jpg",
-      "filter": "",
-      "stock": 18,
-      "category": "mobo"
-    },
-    {
-      "name": "Nvidia RTX 3090",
-      "price": 800.99,
-      "rating": "4.5",
-      "img": "images/gpu1.jpg",
-      "filter": "Bestseller",
-      "stock": 11,
-      "category": "gpu"
-    },
-    {
-      "name": "Nvidia RTX 2060",
-      "price": 350.99,
-      "rating": "5",
-      "img": "images/gpu2.jpg",
-      "filter": "",
-      "stock": 3,
-      "category": "gpu"
-    },
-    {
-      "name": "Nvidia RTX 4090",
-      "price": 1400.99,
-      "rating": "5",
-      "img": "images/gpu3.jpg",
-      "filter": "Newest",
-      "stock": 29,
-      "category": "gpu"
-    },
-    {
-      "name": "Thermaltake TOUGHAIR 510",
-      "price": 59.99,
-      "rating": "4.5",
-      "img": "images/cooling1.jpg",
-      "filter": "Newest",
-      "stock": 21,
-      "category": "cooling"
-    },
-    {
-      "name": "Endorfy Fera 5 Dual Fan",
-      "price": 89.99,
-      "rating": "3.5",
-      "img": "images/cooling2.jpg",
-      "filter": "Newest",
-      "stock": 57,
-      "category": "cooling"
-    },
-    {
-      "name": "be quiet! Pure Rock 2",
-      "price": 39.49,
-      "rating": "3",
-      "img": "images/cooling3.jpg",
-      "filter": "Bestseller",
-      "stock": 71,
-      "category": "cooling"
-    },
-    {
-      "name": "be quiet! Pure Base 600 Window",
-      "price": 119.99,
-      "rating": "1.5",
-      "img": "images/case1.jpg",
-      "filter": "",
-      "stock": 9,
-      "category": "case"
-    },
-    {
-      "name": "SilentiumPC Armis AR1",
-      "price": 34.99,
-      "rating": "0",
-      "img": "images/case2.jpg",
-      "filter": "Newest",
-      "stock": 12,
-      "category": "case"
-    },
-    {
-      "name": "Cooler Master MasterBox TD500 Mesh",
-      "price": 99.99,
-      "rating": "5",
-      "img": "images/case3.jpg",
-      "filter": "Bestseller",
-      "stock": 34,
-      "category": "case"
-    },
-    {
-      "name": "Kingston Fury Beast",
-      "price": 69.99,
-      "rating": "3.5",
-      "img": "images/ram1.jpg",
-      "filter": "Bestseller",
-      "stock": 28,
-      "category": "ram"
-    },
-    {
-      "name": "Patriot Viper Steel",
-      "price": 89.99,
-      "rating": "4",
-      "img": "images/ram2.jpg",
-      "filter": "",
-      "stock": 14,
-      "category": "ram"
-    },
-    {
-      "name": "Corsair Vengeance LPX",
-      "price": 74.99,
-      "rating": "5",
-      "img": "images/ram3.jpg",
-      "filter": "Newest",
-      "stock": 25,
-      "category": "ram"
-    },
-    {
-      "name": "Intel Core i5 11400f",
-      "price": 109.99,
-      "rating": "3.5",
-      "img": "images/cpu1.jpg",
-      "filter": "",
-      "stock": 46,
-      "category": "cpu"
-    },
-    {
-      "name": "Intel Core i5 13400f",
-      "price": 134.99,
-      "rating": "5",
-      "img": "images/cpu2.jpg",
-      "filter": "Bestseller",
-      "stock": 86,
-      "category": "cpu"
-    },
-    {
-      "name": "Intel Core i7 11700",
-      "price": 129.99,
-      "rating": "4.5",
-      "img": "images/cpu3.jpg",
-      "filter": "Bestseller",
-      "stock": 34,
-      "category": "cpu"
-    },
-    {
-      "name": "Intel Core i5 9400f",
-      "price": 69.99,
-      "rating": "3",
-      "img": "images/cpu4.jpg",
-      "filter": "",
-      "stock": 19,
-      "category": "cpu"
-    },
-    {
-      "name": "Intel Core i5 12600k",
-      "price": 119.99,
-      "rating": "4.5",
-      "img": "images/cpu5.jpg",
-      "filter": "Bestseller",
-      "stock": 20,
-      "category": "cpu"
-    },
-    {
-      "name": "Intel Core i3 13200",
-      "price": 109.99,
-      "rating": "2.5",
-      "img": "images/cpu6.jpg",
-      "filter": "Newest",
-      "stock": 32,
-      "category": "cpu"
-    }
-  ]
+  {
+    "name": "ASUS ROG STRIX B550-F GAMING",
+    "price": 209.99,
+    "rating": "4.5",
+    "img": "images/mobo1.webp",
+    "filter": "Newest",
+    "stock": 15,
+    "category": "mobo"
+  },
+  {
+    "name": "ASrock B550M Steel Legend",
+    "price": 169.99,
+    "rating": "4",
+    "img": "images/mobo2.webp",
+    "filter": "Bestseller",
+    "stock": 7,
+    "category": "mobo"
+  },
+  {
+    "name": "MSI B560M PRO-E",
+    "price": 129.99,
+    "rating": "2.5",
+    "img": "images/mobo3.webp",
+    "filter": "",
+    "stock": 18,
+    "category": "mobo"
+  },
+  {
+    "name": "Nvidia RTX 3090",
+    "price": 800.99,
+    "rating": "4.5",
+    "img": "images/gpu1.webp",
+    "filter": "Bestseller",
+    "stock": 11,
+    "category": "gpu"
+  },
+  {
+    "name": "Nvidia RTX 2060",
+    "price": 350.99,
+    "rating": "5",
+    "img": "images/gpu2.webp",
+    "filter": "",
+    "stock": 3,
+    "category": "gpu"
+  },
+  {
+    "name": "Nvidia RTX 4090",
+    "price": 1400.99,
+    "rating": "5",
+    "img": "images/gpu3.webp",
+    "filter": "Newest",
+    "stock": 29,
+    "category": "gpu"
+  },
+  {
+    "name": "Thermaltake TOUGHAIR 510",
+    "price": 59.99,
+    "rating": "4.5",
+    "img": "images/cooling1.webp",
+    "filter": "Newest",
+    "stock": 21,
+    "category": "cooling"
+  },
+  {
+    "name": "Endorfy Fera 5 Dual Fan",
+    "price": 89.99,
+    "rating": "3.5",
+    "img": "images/cooling2.webp",
+    "filter": "Newest",
+    "stock": 57,
+    "category": "cooling"
+  },
+  {
+    "name": "be quiet! Pure Rock 2",
+    "price": 39.49,
+    "rating": "3",
+    "img": "images/cooling3.webp",
+    "filter": "Bestseller",
+    "stock": 71,
+    "category": "cooling"
+  },
+  {
+    "name": "be quiet! Pure Base 600 Window",
+    "price": 119.99,
+    "rating": "1.5",
+    "img": "images/case1.webp",
+    "filter": "",
+    "stock": 9,
+    "category": "case"
+  },
+  {
+    "name": "SilentiumPC Armis AR1",
+    "price": 34.99,
+    "rating": "0",
+    "img": "images/case2.webp",
+    "filter": "Newest",
+    "stock": 12,
+    "category": "case"
+  },
+  {
+    "name": "Cooler Master MasterBox TD500 Mesh",
+    "price": 99.99,
+    "rating": "5",
+    "img": "images/case3.webp",
+    "filter": "Bestseller",
+    "stock": 34,
+    "category": "case"
+  },
+  {
+    "name": "Kingston Fury Beast",
+    "price": 69.99,
+    "rating": "3.5",
+    "img": "images/ram1.webp",
+    "filter": "Bestseller",
+    "stock": 28,
+    "category": "ram"
+  },
+  {
+    "name": "Patriot Viper Steel",
+    "price": 89.99,
+    "rating": "4",
+    "img": "images/ram2.webp",
+    "filter": "",
+    "stock": 14,
+    "category": "ram"
+  },
+  {
+    "name": "Corsair Vengeance LPX",
+    "price": 74.99,
+    "rating": "5",
+    "img": "images/ram3.webp",
+    "filter": "Newest",
+    "stock": 25,
+    "category": "ram"
+  },
+  {
+    "name": "Intel Core i5 11400f",
+    "price": 109.99,
+    "rating": "3.5",
+    "img": "images/cpu1.webp",
+    "filter": "",
+    "stock": 46,
+    "category": "cpu"
+  },
+  {
+    "name": "Intel Core i5 13400f",
+    "price": 134.99,
+    "rating": "5",
+    "img": "images/cpu2.webp",
+    "filter": "Bestseller",
+    "stock": 86,
+    "category": "cpu"
+  },
+  {
+    "name": "Intel Core i7 11700",
+    "price": 129.99,
+    "rating": "4.5",
+    "img": "images/cpu3.webp",
+    "filter": "Bestseller",
+    "stock": 34,
+    "category": "cpu"
+  },
+  {
+    "name": "Intel Core i5 9400f",
+    "price": 69.99,
+    "rating": "3",
+    "img": "images/cpu4.webp",
+    "filter": "",
+    "stock": 19,
+    "category": "cpu"
+  },
+  {
+    "name": "Intel Core i5 12600k",
+    "price": 119.99,
+    "rating": "4.5",
+    "img": "images/cpu5.webp",
+    "filter": "Bestseller",
+    "stock": 20,
+    "category": "cpu"
+  },
+  {
+    "name": "Intel Core i3 13200",
+    "price": 109.99,
+    "rating": "2.5",
+    "img": "images/cpu6.webp",
+    "filter": "Newest",
+    "stock": 32,
+    "category": "cpu"
+  }
+]

@@ -1,4 +1,3 @@
-import React from 'react'
 const bannerUrl = new URL('../assets/images/banner.png', import.meta.url).href
 
 const ImgSlider = () => {

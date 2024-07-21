@@ -14,7 +14,6 @@ export async function getUser() {
 
 export async function loginUser(email, password) {
   const csrfToken = await getCsrfToken();
-  console.log(csrfToken);
 
   const response = await fetch(`${import.meta.env.VITE_APP_DOMAIN}/users/login`, {
     method: 'POST',
@@ -51,9 +50,11 @@ export async function registerUser(email, password, password2) {
 }
 
 export async function logoutUser() {
+  const csrfToken = await getCsrfToken();
+
   const response = await fetch(`${import.meta.env.VITE_APP_DOMAIN}/users/logout`, {
     method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
+    headers: { 'Content-Type': 'application/json', 'X-CSRF-Token': csrfToken},
     mode: 'cors',
     credentials: 'include',
     cache: 'no-cache',

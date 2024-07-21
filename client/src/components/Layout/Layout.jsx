@@ -1,8 +1,8 @@
-import { Suspense } from "react";
+import { Suspense, lazy } from "react";
 import { Outlet } from "react-router-dom";
 import Navbar from "../Navbar/Navbar";
-import Footer from "../Footer";
 import Spinner from "../Spinner";
+const Footer = lazy(() => import("../Footer"));
 
 function Layout() {
   return (
@@ -10,7 +10,13 @@ function Layout() {
       <div className="2xl:container mx-auto overflow-hidden w-full">
         <div className="py-4 px-4 sm:px-8 flex flex-col gap-8 mb-24">
           <Navbar />
-          <Suspense>
+          <Suspense
+            fallback={
+              <div className="mx-auto mt-12">
+                <Spinner />
+              </div>
+            }
+          >
             <Outlet />
           </Suspense>
         </div>

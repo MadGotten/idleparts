@@ -1,5 +1,5 @@
-import { Link } from "react-router-dom";
-import { categories } from "../assets/constants";
+import { Link } from 'react-router-dom';
+import { categories } from '../assets/constants';
 
 const Categories = () => {
   return (
@@ -9,7 +9,7 @@ const Categories = () => {
       </h2>
       <ul className="flex flex-col font-medium justify-between py-2 h-full">
         {categories.map((category) => (
-          <Link to={"/c/" + category.value} key={category.value}>
+          <Link to={'/c/' + category.value} key={category.value}>
             <li className="category-link">
               {category.title}
               <i className="fa-solid fa-chevron-right text-xs"></i>

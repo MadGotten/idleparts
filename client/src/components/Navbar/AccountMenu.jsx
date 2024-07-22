@@ -27,7 +27,7 @@ const AccountMenu = () => {
             Logout
           </button>
           <hr className="h-px mt-2 bg-gray-200 border-0" />
-          <Link to="/" className="flex flex-row items-center gap-2">
+          <Link to="/account" className="flex flex-row items-center gap-2">
             <i className="fa-regular fa-user text-base"></i>
             <span>Account</span>
           </Link>

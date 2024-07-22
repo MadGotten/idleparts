@@ -22,6 +22,9 @@ const MobileMenu = ({ menuOpen, setMenuOpen }) => (
       <Link to="/cart">
         <li>Cart</li>
       </Link>
+      <Link to="/account">
+        <li>Account</li>
+      </Link>
       <Link to="/account/orders">
         <li>Orders</li>
       </Link>

@@ -6,7 +6,7 @@ const HomePage = lazy(() => import('./pages/Homepage/HomePage.jsx'));
 const AuthPage = lazy(() => import('./pages/AuthPage/AuthPage.jsx'));
 const NotFoundPage = lazy(() => import('./pages/NotFound/NotFoundPage.jsx'));
 const CartPage = lazy(() => import('./pages/Cart/CartPage.jsx'));
-const ProfilePage = lazy(() => import('./pages/Profile/ProfilePage.jsx'));
+const AccountPage = lazy(() => import('./pages/Account/AccountPage.jsx'));
 const ProductPage = lazy(() => import('./pages/Product/ProductPage.jsx'));
 const SearchPage = lazy(() => import('./pages/Product/SearchPage.jsx'));
 const CategoryPage = lazy(() => import('./pages/Category/CategoryPage.jsx'));
@@ -39,6 +39,14 @@ const Paths = () => {
           <Route index element={<HomePage />} />
           <Route path="/cart" element={<CartPage />} />
           <Route
+            path="/account"
+            element={
+              <ProtectedRoute>
+                <AccountPage />
+              </ProtectedRoute>
+            }
+          />
+          <Route
             path="account/orders"
             element={
               <ProtectedRoute>
@@ -64,7 +72,6 @@ const Paths = () => {
           />
           <Route path="/p" element={<SearchPage />} />
           <Route path="/p/:product_id" element={<ProductPage />} />
-          <Route path="/profile" element={<ProfilePage />} />
           <Route path="/c/:category" element={<CategoryPage />} />
         </Route>
         <Route path="*" element={<NotFoundPage />} />

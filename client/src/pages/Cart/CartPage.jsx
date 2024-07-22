@@ -65,44 +65,44 @@ function CartPage() {
   }
 
   return (
-    <div className='flex flex-col md:flex-row w-full items-center sm:items-start md:justify-between gap-8 md:gap-4'>
+    <div className="flex flex-col md:flex-row w-full items-center sm:items-start md:justify-between gap-8 md:gap-4">
       {isLoading ? (
         <Spinner />
       ) : (
         <>
-          <div className='flex flex-col'>
+          <div className="flex flex-col">
             {!cartProducts?.length && <div>Your cart is empty</div>}
             {cartProducts?.length > 0 && (
               <>
-                <h2 className='text-xl font-medium mb-4'>Cart: </h2>
-                <div className='flex flex-col gap-6'>
+                <h2 className="text-xl font-medium mb-4">Cart: </h2>
+                <div className="flex flex-col gap-6">
                   {products.map((products) => (
                     <div
                       key={products._id}
-                      className='flex gap-4 p-4 bg-slate-50 shadow-md drop-shadow-md rounded-lg'
+                      className="flex gap-4 p-4 bg-slate-50 shadow-md drop-shadow-md rounded-lg"
                     >
                       <Link to={'/p/' + products._id}>
                         <img
                           src={`${import.meta.env.VITE_APP_DOMAIN}/static/${products.img}`}
-                          alt='cpu'
-                          className='w-28 h-auto object-contain'
+                          alt="cpu"
+                          className="w-28 h-auto object-contain"
                         ></img>
                       </Link>
-                      <div className='flex flex-col justify-between w-52 lg:w-64 min-h-[8rem] items-end'>
-                        <div className='flex flex-row items-start gap-3'>
-                          <p className='text-right'>{products.name}</p>
+                      <div className="flex flex-col justify-between w-52 lg:w-64 min-h-[8rem] items-end">
+                        <div className="flex flex-row items-start gap-3">
+                          <p className="text-right">{products.name}</p>
                           <button
                             onClick={() => deleteFromCart(products._id)}
-                            className='text-blue-600 rounded-lg'
+                            className="text-blue-600 rounded-lg"
                           >
-                            <i className='fa-solid fa-trash'></i>
+                            <i className="fa-solid fa-trash"></i>
                           </button>
                         </div>
-                        <div className='flex flex-row gap-1 justify-end'>
-                          <div className='flex rounded-lg w-20 p-2 justify-center bg-blue-600 text-white text-sm'>
+                        <div className="flex flex-row gap-1 justify-end">
+                          <div className="flex rounded-lg w-20 p-2 justify-center bg-blue-600 text-white text-sm">
                             {products.price}$
                           </div>
-                          <div className='flex rounded-lg w-8 p-2 justify-center bg-blue-600 text-white text-sm'>
+                          <div className="flex rounded-lg w-8 p-2 justify-center bg-blue-600 text-white text-sm">
                             {cartProducts.filter((id) => id === products._id).length}
                           </div>
                         </div>
@@ -113,19 +113,19 @@ function CartPage() {
               </>
             )}
           </div>
-          <div className='flex flex-col w-full md:w-[18.75rem] justify-between h-40 bg-slate-50 shadow-md drop-shadow-md rounded-lg p-2'>
-            <h2 className='flex text-lg justify-center'>Checkout</h2>
-            <div className='flex flex-col gap-2'>
-              <div className='flex justify-between font-normal text-lg'>
+          <div className="flex flex-col w-full md:w-[18.75rem] justify-between h-40 bg-slate-50 shadow-md drop-shadow-md rounded-lg p-2">
+            <h2 className="flex text-lg justify-center">Checkout</h2>
+            <div className="flex flex-col gap-2">
+              <div className="flex justify-between font-normal text-lg">
                 Total:{' '}
-                <div className='flex flex-col items-end font-semibold gap-1'>
+                <div className="flex flex-col items-end font-semibold gap-1">
                   {total}${' '}
-                  <span className='font-normal text-sm text-gray-500'>+ free delivery</span>
+                  <span className="font-normal text-sm text-gray-500">+ free delivery</span>
                 </div>
               </div>
               <button
                 onClick={() => buyproducts()}
-                className='flex justify-center w-full bg-blue-600 rounded-lg p-2 text-white'
+                className="flex justify-center w-full bg-blue-600 rounded-lg p-2 text-white"
               >
                 Pay now
               </button>

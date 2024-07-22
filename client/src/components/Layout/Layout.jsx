@@ -1,8 +1,8 @@
-import { Suspense, lazy } from "react";
-import { Outlet } from "react-router-dom";
-import Navbar from "../Navbar/Navbar";
-import Spinner from "../Spinner";
-const Footer = lazy(() => import("../Footer"));
+import { Suspense, lazy } from 'react';
+import { Outlet } from 'react-router-dom';
+import Navbar from '../Navbar/Navbar';
+import Spinner from '../Spinner';
+const Footer = lazy(() => import('../Footer'));
 
 function Layout() {
   return (

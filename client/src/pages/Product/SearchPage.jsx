@@ -34,9 +34,9 @@ const SearchPage = () => {
   }
 
   return (
-    <div className='flex flex-row justify-start gap-12'>
+    <div className="flex flex-row justify-start gap-12">
       <Categories />
-      <div className='flex flex-col pl-4 flex-nowrap mt-4 gap-6 sm:gap-8'>
+      <div className="flex flex-col pl-4 flex-nowrap mt-4 gap-6 sm:gap-8">
         {ShowSpinner && <Spinner />}
 
         {status === 'error' && <div>Error fetching products</div>}

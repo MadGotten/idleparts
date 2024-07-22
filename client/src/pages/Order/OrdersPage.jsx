@@ -22,25 +22,25 @@ function OrdersPage() {
 
   return (
     <div>
-      <div className='flex flex-col items-start gap-4'>
-        <h1 className='text-2xl font-semibold'>Your orders</h1>
-        <div className='flex flex-col gap-4  w-[400px]'>
+      <div className="flex flex-col items-start gap-4">
+        <h1 className="text-2xl font-semibold">Your orders</h1>
+        <div className="flex flex-col gap-4  w-[400px]">
           {status === 'error' || isLoading ? (
             <></>
           ) : data && data[1].length > 0 ? (
             data[1].map((date) => (
-              <div className='flex flex-col gap-1' key={date}>
+              <div className="flex flex-col gap-1" key={date}>
                 <p>{date}</p>
                 {data[0]
                   .filter((order) => new Date(order.created_at).toLocaleDateString() === date)
                   .map((order) => {
                     return (
-                      <div className='flex flex-row justify-between' key={order._id}>
-                        <Link to={'/account/orders/' + order._id} className='text-blue-600'>
+                      <div className="flex flex-row justify-between" key={order._id}>
+                        <Link to={'/account/orders/' + order._id} className="text-blue-600">
                           Order #{order._id}
                         </Link>
-                        <p className='w-20'>
-                          <span className='mr-2'>|</span>
+                        <p className="w-20">
+                          <span className="mr-2">|</span>
                           <span>{new Date(order.created_at).toLocaleTimeString()}</span>
                         </p>
                       </div>

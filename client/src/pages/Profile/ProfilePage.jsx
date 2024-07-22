@@ -6,7 +6,7 @@ import HomeProducts from '../../components/Product';
 const ProfilePage = () => {
   return (
     <div>
-      <div className='flex flex-row w-full gap-4'>
+      <div className="flex flex-row w-full gap-4">
         <Categories />
         <ImgSlider />
       </div>

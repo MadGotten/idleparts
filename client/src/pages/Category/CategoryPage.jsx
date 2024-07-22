@@ -31,7 +31,7 @@ const CategoryPage = () => {
       {
         method: 'GET',
         headers: { 'Content-Type': 'application/json' },
-        mode: 'cors'
+        mode: 'cors',
       }
     );
     const data = await response?.json();

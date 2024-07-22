@@ -16,30 +16,30 @@ const AccountMenu = () => {
   }
 
   return (
-    <div className='flex flex-col items gap-2 text-sm'>
+    <div className="flex flex-col items gap-2 text-sm">
       {user ? (
         <>
-          <p className='text-sm text-center font-medium'>{user.user}</p>
+          <p className="text-sm text-center font-medium">{user.user}</p>
           <button
             onClick={Logout}
-            className='bg-blue-600 hover:bg-blue-700 rounded-lg text-center p-2 text-sm text-slate-200'
+            className="bg-blue-600 hover:bg-blue-700 rounded-lg text-center p-2 text-sm text-slate-200"
           >
             Logout
           </button>
-          <hr className='h-px mt-2 bg-gray-200 border-0' />
-          <Link to='/' className='flex flex-row items-center gap-2'>
-            <i className='fa-regular fa-user text-base'></i>
+          <hr className="h-px mt-2 bg-gray-200 border-0" />
+          <Link to="/" className="flex flex-row items-center gap-2">
+            <i className="fa-regular fa-user text-base"></i>
             <span>Account</span>
           </Link>
-          <Link to='/account/orders' className='flex flex-row items-center gap-2'>
-            <i className='fa-regular fa-clipboard text-base'></i>
+          <Link to="/account/orders" className="flex flex-row items-center gap-2">
+            <i className="fa-regular fa-clipboard text-base"></i>
             <span>Orders</span>
           </Link>
         </>
       ) : (
         <Link
-          to='/login'
-          className='bg-blue-600 hover:bg-blue-700 rounded-lg text-center p-2 text-sm text-slate-200'
+          to="/login"
+          className="bg-blue-600 hover:bg-blue-700 rounded-lg text-center p-2 text-sm text-slate-200"
         >
           Log In
         </Link>

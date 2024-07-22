@@ -10,7 +10,7 @@ async function getProduct() {
     {
       method: 'GET',
       headers: { 'Content-Type': 'application/json' },
-      mode: 'cors'
+      mode: 'cors',
     }
   );
   const data = await response?.json();
@@ -24,7 +24,7 @@ async function addWishlist(productId) {
     headers: { 'Content-Type': 'application/json' },
     mode: 'cors',
     credentials: 'include',
-    body: JSON.stringify({ productId: productId })
+    body: JSON.stringify({ productId: productId }),
   });
   const data = await response?.json();
 
@@ -47,7 +47,8 @@ function ProductPage() {
               <img
                 src={`${import.meta.env.VITE_APP_DOMAIN}/static/${data.img}`}
                 alt="component_image"
-                className="md:max-w-full md:max-h-[220px] h-auto"></img>
+                className="md:max-w-full md:max-h-[220px] h-auto"
+              ></img>
             </div>
             <div className="md:w-1/2">
               <h1 className="font-semibold text-lg md:text-xl">{data.name}</h1>
@@ -63,12 +64,14 @@ function ProductPage() {
             <div className="flex flex-col gap-4">
               <button
                 onClick={() => addWishlist(data._id)}
-                className="bg-orange-400 hover:bg-orange-500 rounded-lg text-center p-2 text-sm text-slate-200 whitespace-nowrap">
+                className="bg-orange-400 hover:bg-orange-500 rounded-lg text-center p-2 text-sm text-slate-200 whitespace-nowrap"
+              >
                 Add to wishlist
               </button>
               <button
                 onClick={() => addProduct(data._id)}
-                className="bg-blue-600 hover:bg-blue-700 rounded-lg text-center p-3 text-base text-slate-200">
+                className="bg-blue-600 hover:bg-blue-700 rounded-lg text-center p-3 text-base text-slate-200"
+              >
                 Add to cart
               </button>
             </div>

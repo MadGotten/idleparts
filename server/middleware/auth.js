@@ -1,7 +1,7 @@
-const auth = async(req, res, next) => {
-    if (!req.session.user) return res.status(401).send()
-    
-    next();
-}
+const auth = async (req, res, next) => {
+  if (!req.session.user) return res.status(401).send();
 
-module.exports = auth
+  next();
+};
+
+module.exports = auth;

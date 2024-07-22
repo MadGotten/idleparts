@@ -54,7 +54,7 @@ export async function logoutUser() {
 
   const response = await fetch(`${import.meta.env.VITE_APP_DOMAIN}/users/logout`, {
     method: 'POST',
-    headers: { 'Content-Type': 'application/json', 'X-CSRF-Token': csrfToken},
+    headers: { 'Content-Type': 'application/json', 'X-CSRF-Token': csrfToken },
     mode: 'cors',
     credentials: 'include',
     cache: 'no-cache',

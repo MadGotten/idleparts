@@ -1,4 +1,3 @@
-import React from 'react';
 import { useQuery } from 'react-query';
 import { Link } from 'react-router-dom';
 
@@ -11,7 +10,11 @@ const getOrders = async () => {
   });
   const data = await response?.json();
   const uniqueDates = [
-    ...new Set(data.orders.map((order) => new Date(order.created_at).toLocaleDateString())),
+    ...new Set(
+      data.orders.map((order) =>
+        new Date(order.created_at).toLocaleDateString('en-US', { year: 'numeric', month: 'long' })
+      )
+    ),
   ];
 
   return [data.orders, uniqueDates];
@@ -32,7 +35,13 @@ function OrdersPage() {
               <div className="flex flex-col gap-1" key={date}>
                 <p>{date}</p>
                 {data[0]
-                  .filter((order) => new Date(order.created_at).toLocaleDateString() === date)
+                  .filter(
+                    (order) =>
+                      new Date(order.created_at).toLocaleDateString('en-US', {
+                        year: 'numeric',
+                        month: 'long',
+                      }) === date
+                  )
                   .map((order) => {
                     return (
                       <div className="flex flex-row justify-between" key={order._id}>

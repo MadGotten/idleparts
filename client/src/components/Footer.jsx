@@ -34,7 +34,7 @@ const Footer = () => {
           <Link to="/">
             <img src="/logo.svg" alt="logo" className="w-16 h-8" />
           </Link>
-          <p className="flex items-center">@ 2022 Idleparts. All rights reserved.</p>
+          <p className="flex items-center">@ 2024 Idleparts. All rights reserved.</p>
         </div>
       </div>
     </div>

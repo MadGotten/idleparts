@@ -1,68 +1,77 @@
 const express = require('express');
 const Product = require('../models/product.model');
 const Order = require('../models/order.model');
+const auth = require('../middleware/auth');
+
 const router = express.Router();
 
 router.post('/', async (req, res) => {
-  const ids = req.body.ids;
+  const { ids } = req.body;
+
+  if (!ids || ids.length === 0) {
+    return res.status(400).json({ message: 'Invalid product IDs' });
+  }
+
   try {
     const products = await Product.find({ _id: ids });
     if (products && products.length > 0) {
       res.status(200).json({ items: products });
     } else {
-      res.sendStatus(400);
+      res.status(404).json({ message: 'No products found' });
     }
   } catch (error) {
-    console.error(error);
-    res.sendStatus(500);
+    res.status(500).json({ message: 'Server error' });
   }
 });
 
-router.post('/checkout', async (req, res) => {
-  const ids = req.body.ids;
-  if (req.session.user) {
-    const productMap = {};
-    ids.forEach((id) => {
-      if (productMap[id]) {
-        productMap[id].quantity++;
-      } else {
-        productMap[id] = { product_id: id, quantity: 1 };
-      }
-    });
+router.post('/checkout', auth, async (req, res) => {
+  const { ids } = req.body;
 
-    const products = Object.values(productMap);
-    let price = 0;
+  if (!ids || ids.length === 0) {
+    return res.status(400).json({ message: 'Invalid product IDs' });
+  }
 
-    const getProducts = await Product.find({ _id: { $in: ids } });
+  try {
+    const productMap = ids.reduce((products, id) => {
+      products[id] = products[id]
+        ? { ...products[id], quantity: products[id].quantity + 1 }
+        : { product_id: id, quantity: 1 };
+      return products;
+    }, {});
 
     const productsToProcess = [];
+    let totalPrice = 0;
 
-    for (const product of getProducts) {
-      const foundProduct = products.find((p) => String(p.product_id) === String(product._id));
+    const products = await Product.find({ _id: { $in: ids } });
 
-      if (foundProduct) {
-        const newStock = product.stock - foundProduct.quantity;
-        if (newStock < 0) {
-          console.error(`Insufficient stock for product ${product._id}`);
-          return res.sendStatus(400);
-        } else {
-          productsToProcess.push({ _id: product._id, stock: newStock });
-          price += Number(product.price * foundProduct.quantity);
-        }
+    for (const product of products) {
+      const orderProduct = productMap[product._id];
+      const newStock = product.stock - orderProduct.quantity;
+      if (newStock < 0) {
+        console.error(`Insufficient stock for product ${product._id}`);
+        return res.status(400).json({ message: `Insufficient stock for product ${product._id}` });
+      } else {
+        productsToProcess.push({ _id: product._id, stock: newStock });
+        totalPrice += Number(product.price * orderProduct.quantity);
       }
     }
 
-    for (const product of productsToProcess) {
-      await Product.updateOne({ _id: product._id }, { $set: { stock: product.stock } });
-    }
+    // Update stock in products
+    const updatePromises = productsToProcess.map((product) =>
+      Product.updateOne({ _id: product._id }, { $set: { stock: product.stock } })
+    );
+    await Promise.all(updatePromises);
 
     history = await Order.create({
       user_id: req.session.user_id,
-      price: Number(price).toFixed(2),
-      products: products,
+      price: Number(totalPrice).toFixed(2),
+      products: Object.values(productMap),
       created_at: new Date(),
     });
-    res.status(200).json({ message: 'Checkout successful' });
+
+    res.status(200).json({ message: 'Checkout successful', order });
+  } catch (err) {
+    res.status(500).json({ message: 'Server error' });
   }
 });
 

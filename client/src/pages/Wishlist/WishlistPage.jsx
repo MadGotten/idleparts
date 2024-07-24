@@ -20,7 +20,6 @@ function WishlistPage() {
 
   const deleteWishlist = async (productId) => {
     let updatedWishlist = wishlist.filter((product) => {
-      console.log(product._id);
       return product._id !== productId;
     });
     SetWishlist(updatedWishlist);
@@ -56,7 +55,7 @@ function WishlistPage() {
                       <img
                         src={`${import.meta.env.VITE_APP_DOMAIN}/static/${product.img}`}
                         alt={product.name}
-                        className="w-full h-full"
+                        className="w-full max-h-full"
                       ></img>
                     </div>
                   </Link>

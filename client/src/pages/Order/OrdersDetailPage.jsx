@@ -43,7 +43,7 @@ function OrdersDetailPage() {
                             <img
                               src={`${import.meta.env.VITE_APP_DOMAIN}/static/${product.product_id.img}`}
                               alt={product.product_id.name}
-                              className="w-full h-full"
+                              className="w-full max-h-full"
                             ></img>
                           </div>
                         </Link>

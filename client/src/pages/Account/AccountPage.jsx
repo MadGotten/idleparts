@@ -1,25 +1,31 @@
 import { useEffect, useState } from 'react';
+import Spinner from '../../components/Spinner';
+import { useQuery } from 'react-query';
 import getCsrfToken from '../../hooks/useCsrfToken';
+
+const getUserCredentials = async () => {
+  const response = await fetch(`${import.meta.env.VITE_APP_DOMAIN}/account`, {
+    method: 'GET',
+    headers: { 'Content-Type': 'application/json' },
+    mode: 'cors',
+    credentials: 'include',
+  });
+  const data = await response?.json();
+  return data.user;
+};
 
 const AccountPage = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('********');
   const [isEditingEmail, setIsEditingEmail] = useState(false);
   const [isEditingPassword, setIsEditingPassword] = useState(false);
+  const { data } = useQuery(['accountCredentials'], () => getUserCredentials());
 
   useEffect(() => {
-    const getUserCredentials = async () => {
-      const response = await fetch(`${import.meta.env.VITE_APP_DOMAIN}/account`, {
-        method: 'GET',
-        headers: { 'Content-Type': 'application/json' },
-        mode: 'cors',
-        credentials: 'include',
-      });
-      const data = await response?.json();
-      setEmail(data.user);
-    };
-    getUserCredentials();
-  }, []);
+    if (data) {
+      setEmail(data);
+    }
+  }, [data]);
 
   const editCredentials = async (type) => {
     if (type == 'email') setIsEditingEmail(true);

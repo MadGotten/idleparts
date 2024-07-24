@@ -81,7 +81,7 @@ function CartPage() {
                       key={products._id}
                       className="flex gap-4 p-4 bg-slate-50 shadow-md drop-shadow-md rounded-lg"
                     >
-                      <Link to={'/p/' + products._id}>
+                      <Link to={'/p/' + products._id} className="flex">
                         <img
                           src={`${import.meta.env.VITE_APP_DOMAIN}/static/${products.img}`}
                           alt="cpu"

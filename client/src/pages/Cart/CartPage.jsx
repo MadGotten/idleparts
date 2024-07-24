@@ -1,4 +1,4 @@
-import React, { useState, useContext, useEffect } from 'react';
+import { useState, useContext, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import CartContext from '../../context/CartContext';
 import AuthContext from '../../context/AuthContext';
@@ -6,13 +6,14 @@ import Spinner from '../../components/Spinner';
 
 function CartPage() {
   const { cartProducts, clearCart } = useContext(CartContext);
-  const [user] = useContext(AuthContext);
+  const { user } = useContext(AuthContext);
   const [isLoading, setIsLoading] = useState(true);
   const [products, setProducts] = useState([]);
   const [total, setTotal] = useState(0);
   const navigate = useNavigate();
 
   useEffect(() => {
+    console.log(cartProducts);
     if (cartProducts.length > 0) {
       setIsLoading(true);
       fetch(`${import.meta.env.VITE_APP_DOMAIN}/cart`, {
@@ -22,7 +23,7 @@ function CartPage() {
         body: JSON.stringify({ ids: cartProducts }),
       })
         .then((response) => {
-          if (response.status === 400) {
+          if (!response.ok) {
             clearCart();
           }
           return response.json();

@@ -4,13 +4,12 @@ import { AuthContext } from '../../context/AuthContext';
 import { logoutUser } from '../../hooks/useAuth';
 
 const AccountMenu = () => {
-  const [user, setUser] = useContext(AuthContext);
+  const { user, logout } = useContext(AuthContext);
 
-  async function Logout() {
+  async function handleLogout() {
     logoutUser().then((data) => {
       if (data.status) {
-        setUser(undefined);
-        localStorage.removeItem('user');
+        logout();
       }
     });
   }
@@ -21,7 +20,7 @@ const AccountMenu = () => {
         <>
           <p className="text-sm text-center font-medium">{user.user}</p>
           <button
-            onClick={Logout}
+            onClick={handleLogout}
             className="bg-blue-600 hover:bg-blue-700 rounded-lg text-center p-2 text-sm text-slate-200"
           >
             Logout

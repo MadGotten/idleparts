@@ -15,7 +15,7 @@ const OrdersDetailPage = lazy(() => import('./pages/Order/OrdersDetailPage.jsx')
 const WishlistPage = lazy(() => import('./pages/Wishlist/WishlistPage.jsx'));
 
 const Paths = () => {
-  const [user] = useContext(AuthContext);
+  const { user } = useContext(AuthContext);
 
   const ProtectedRoute = ({ isAllowed = user, redirectPath = '/login', children }) => {
     if (!isAllowed) {

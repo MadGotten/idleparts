@@ -3,7 +3,7 @@ import { AuthContext } from '../context/AuthContext';
 import { loginUser } from '../hooks/useAuth';
 
 function Login() {
-  const [user, setUser] = useContext(AuthContext);
+  const { setUser } = useContext(AuthContext);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [alert, setAlert] = useState('');
@@ -39,7 +39,7 @@ function Login() {
             <input
               type="password"
               name="password"
-              autoComplete="current-password"
+              autoComplete="password"
               onChange={(e) => setPassword(e.target.value)}
               className="mt-1 px-3 py-2 bg-white border shadow-sm border-slate-300 placeholder-slate-400 focus:outline-none focus:border-sky-500 focus:ring-sky-500 block w-full rounded-md text-sm sm:text-base focus:ring-1"
               required

@@ -1,4 +1,4 @@
-import { useState, useEffect, createContext, useCallback } from 'react';
+import { useState, useEffect, createContext, useCallback, useMemo } from 'react';
 import { getUser } from '../hooks/useAuth';
 
 export const AuthContext = createContext();
@@ -28,7 +28,21 @@ export const AuthProvider = ({ children }) => {
     }
   }, []);
 
-  return <AuthContext.Provider value={[user, setUser]}>{children}</AuthContext.Provider>;
+  const logout = () => {
+    setUser(undefined);
+    localStorage.removeItem('user');
+  };
+
+  const contextValue = useMemo(
+    () => ({
+      user,
+      setUser,
+      logout,
+    }),
+    [user, setUser, logout]
+  );
+
+  return <AuthContext.Provider value={contextValue}>{children}</AuthContext.Provider>;
 };
 
 export default AuthContext;

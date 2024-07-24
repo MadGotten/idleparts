@@ -1,6 +1,6 @@
-import { useEffect, useState } from 'react';
-import Spinner from '../../components/Spinner';
+import { useEffect, useState, useContext } from 'react';
 import { useQuery } from 'react-query';
+import { AuthContext } from '../../context/AuthContext';
 import getCsrfToken from '../../hooks/useCsrfToken';
 
 const getUserCredentials = async () => {
@@ -15,6 +15,7 @@ const getUserCredentials = async () => {
 };
 
 const AccountPage = () => {
+  const { logout } = useContext(AuthContext);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('********');
   const [isEditingEmail, setIsEditingEmail] = useState(false);
@@ -82,6 +83,7 @@ const AccountPage = () => {
       });
       if (response.ok) {
         console.log('Account deleted');
+        logout();
       } else {
         console.error('Failed to delete account');
       }

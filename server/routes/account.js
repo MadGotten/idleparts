@@ -121,7 +121,7 @@ router.post('/wishlist', async (req, res) => {
     user.wishlist.push(productId);
     await user.save();
 
-    res.status(201).json({ message: 'Product added to wishlist', wishlist: req.user.wishlist });
+    res.status(201).json({ message: 'Product added to wishlist', wishlist: user.wishlist });
   } catch (err) {
     res.status(500).json({ message: 'Server error' });
   }

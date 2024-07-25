@@ -2,7 +2,7 @@ import { useState, createContext, useEffect } from 'react';
 
 export const CartContext = createContext({});
 
-export function CartContextProvider({ children }) {
+export function CartProvider({ children }) {
   const localcart = typeof window !== 'undefined' ? window.localStorage : null;
   const [cartProducts, setCartProducts] = useState([]);
 

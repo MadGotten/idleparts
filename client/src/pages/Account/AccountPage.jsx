@@ -1,6 +1,7 @@
 import { useEffect, useState, useContext } from 'react';
 import { useQuery } from 'react-query';
 import { AuthContext } from '../../context/AuthContext';
+import { DialogContext } from '../../context/DialogContext';
 import getCsrfToken from '../../hooks/useCsrfToken';
 
 const getUserCredentials = async () => {
@@ -16,6 +17,7 @@ const getUserCredentials = async () => {
 
 const AccountPage = () => {
   const { logout } = useContext(AuthContext);
+  const { openDialog } = useContext(DialogContext);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('********');
   const [isEditingEmail, setIsEditingEmail] = useState(false);
@@ -34,62 +36,68 @@ const AccountPage = () => {
   };
 
   const updateEmail = async () => {
-    try {
-      const csrfToken = await getCsrfToken();
-      const response = await fetch(`${import.meta.env.VITE_APP_DOMAIN}/account`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json', 'X-CSRF-Token': csrfToken },
-        body: JSON.stringify({ email }),
-        credentials: 'include',
-      });
-      if (response.ok) {
-        setIsEditingEmail(false);
-        console.log('Email updated successfully');
-      } else {
-        console.error('Failed to update email');
+    openDialog('Are you sure you want to change your email?', async () => {
+      try {
+        const csrfToken = await getCsrfToken();
+        const response = await fetch(`${import.meta.env.VITE_APP_DOMAIN}/account`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json', 'X-CSRF-Token': csrfToken },
+          body: JSON.stringify({ email }),
+          credentials: 'include',
+        });
+        if (response.ok) {
+          setIsEditingEmail(false);
+          console.log('Email updated successfully');
+        } else {
+          console.error('Failed to update email');
+        }
+      } catch (error) {
+        console.error('Error updating email:', error);
       }
-    } catch (error) {
-      console.error('Error updating email:', error);
-    }
+    });
   };
 
   const updatePassword = async () => {
-    try {
-      const csrfToken = await getCsrfToken();
-      const response = await fetch(`${import.meta.env.VITE_APP_DOMAIN}/account`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json', 'X-CSRF-Token': csrfToken },
-        body: JSON.stringify({ password }),
-        credentials: 'include',
-      });
-      if (response.ok) {
-        setIsEditingPassword(false);
-        console.log('Password updated successfully');
-      } else {
-        console.error('Failed to update password');
+    openDialog('Are you sure you want to change your password?', async () => {
+      try {
+        const csrfToken = await getCsrfToken();
+        const response = await fetch(`${import.meta.env.VITE_APP_DOMAIN}/account`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json', 'X-CSRF-Token': csrfToken },
+          body: JSON.stringify({ password }),
+          credentials: 'include',
+        });
+        if (response.ok) {
+          setIsEditingPassword(false);
+          console.log('Password updated successfully');
+        } else {
+          console.error('Failed to update password');
+        }
+      } catch (error) {
+        console.error('Error updating password:', error);
       }
-    } catch (error) {
-      console.error('Error updating password:', error);
-    }
+    });
   };
 
-  const deleteAccount = async (e) => {
+  const deleteAccount = (e) => {
     e.preventDefault();
-    try {
-      const response = await fetch(`${import.meta.env.VITE_APP_DOMAIN}/account`, {
-        method: 'DELETE',
-        headers: { 'Content-Type': 'application/json' },
-        credentials: 'include',
-      });
-      if (response.ok) {
-        console.log('Account deleted');
-        logout();
-      } else {
-        console.error('Failed to delete account');
+    openDialog('Are you sure you want to delete your account?', async () => {
+      try {
+        const response = await fetch(`${import.meta.env.VITE_APP_DOMAIN}/account`, {
+          method: 'DELETE',
+          headers: { 'Content-Type': 'application/json' },
+          credentials: 'include',
+        });
+        if (response.ok) {
+          console.log('Account deleted');
+          logout();
+        } else {
+          console.error('Failed to delete account');
+        }
+      } catch (error) {
+        console.error('Error deleting account:', error);
       }
-    } catch (error) {
-      console.error('Error deleting account:', error);
-    }
+    });
   };
 
   return (

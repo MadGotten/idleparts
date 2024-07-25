@@ -54,7 +54,7 @@ function ProductPage() {
               <h1 className="font-semibold text-lg md:text-xl">{data.name}</h1>
             </div>
           </div>
-          <div className="flex flex-col w-full sm:w-1/3 p-4 justify-between bg-slate-50 shadow-md drop-shadow-md rounded-lg">
+          <div className="flex flex-col gap-4 w-full sm:w-1/3 p-4 justify-between bg-slate-50 shadow-md drop-shadow-md rounded-lg">
             <div className="flex flex-col gap-2">
               <div className="text-xl font-semibold">{data.price}$</div>
               <div className="text-base">

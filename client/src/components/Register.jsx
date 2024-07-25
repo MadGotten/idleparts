@@ -1,9 +1,8 @@
 import { useState, useContext } from 'react';
 import { AuthContext } from '../context/AuthContext';
-import { registerUser } from '../hooks/useAuth';
 
 function Register() {
-  const { setUser } = useContext(AuthContext);
+  const { register } = useContext(AuthContext);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [password2, setPassword2] = useState('');
@@ -11,13 +10,7 @@ function Register() {
 
   async function Authenticate(e) {
     e.preventDefault();
-    registerUser(email, password, password2).then((data) => {
-      if (data.credentials) {
-        localStorage.setItem('user', JSON.stringify(data.credentials));
-        setUser(data.credentials);
-      }
-      setAlert(data);
-    });
+    await register(email, password, password2, setAlert);
   }
 
   return (
@@ -71,9 +64,7 @@ function Register() {
             Register
           </button>
         </form>
-        {alert && alert.msg !== undefined && (
-          <div className="text-sm text-red-500">{alert.msg}</div>
-        )}
+        {alert && <div className="text-sm text-red-500">{alert.msg}</div>}
       </div>
     </div>
   );

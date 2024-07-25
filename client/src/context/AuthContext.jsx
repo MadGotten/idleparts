@@ -1,5 +1,5 @@
 import { useState, useEffect, createContext, useCallback, useMemo } from 'react';
-import { getUser } from '../hooks/useAuth';
+import { getUser, loginUser, registerUser } from '../hooks/useAuth';
 
 export const AuthContext = createContext();
 
@@ -26,7 +26,27 @@ export const AuthProvider = ({ children }) => {
     if (user) {
       fetchUser();
     }
-  }, []);
+  }, [fetchUser]);
+
+  const login = (email, password, setAlert) => {
+    loginUser(email, password).then((data) => {
+      if (data.credentials) {
+        localStorage.setItem('user', JSON.stringify(data.credentials));
+        setUser(data.credentials);
+      }
+      setAlert(data);
+    });
+  };
+
+  const register = async (email, password, password2, setAlert) => {
+    registerUser(email, password, password2).then((data) => {
+      if (data.credentials) {
+        localStorage.setItem('user', JSON.stringify(data.credentials));
+        setUser(data.credentials);
+      }
+      setAlert(data);
+    });
+  };
 
   const logout = () => {
     setUser(undefined);
@@ -37,9 +57,11 @@ export const AuthProvider = ({ children }) => {
     () => ({
       user,
       setUser,
+      login,
+      register,
       logout,
     }),
-    [user, setUser, logout]
+    [user, login, register, logout]
   );
 
   return <AuthContext.Provider value={contextValue}>{children}</AuthContext.Provider>;

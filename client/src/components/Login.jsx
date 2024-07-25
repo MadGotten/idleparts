@@ -1,22 +1,15 @@
 import { useState, useContext } from 'react';
 import { AuthContext } from '../context/AuthContext';
-import { loginUser } from '../hooks/useAuth';
 
 function Login() {
-  const { setUser } = useContext(AuthContext);
+  const { login } = useContext(AuthContext);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [alert, setAlert] = useState('');
 
   async function Authenticate(e) {
     e.preventDefault();
-    loginUser(email, password).then((data) => {
-      if (data.credentials) {
-        localStorage.setItem('user', JSON.stringify(data.credentials));
-        setUser(data.credentials);
-      }
-      setAlert(data);
-    });
+    await login(email, password, setAlert);
   }
   return (
     <div className="flex justify-center">

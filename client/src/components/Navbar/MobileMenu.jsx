@@ -1,6 +1,6 @@
 import { memo } from 'react';
 import { Link } from 'react-router-dom';
-import { categories } from '../../assets/constants';
+import { categories } from '@/assets/constants';
 
 const MobileMenu = ({ menuOpen, setMenuOpen }) => (
   <div

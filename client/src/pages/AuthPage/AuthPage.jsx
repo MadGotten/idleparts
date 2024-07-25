@@ -1,10 +1,10 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
-import Login from '../../components/Login';
-import Register from '../../components/Register';
-import Footer from '../../components/Footer';
+import Login from '@/components/Login';
+import Register from '@/components/Register';
+import Footer from '@/components/Footer';
 
-const logoUrl = new URL('../../assets/images/logo.png', import.meta.url).href;
+const logoUrl = new URL('@/assets/images/logo.png', import.meta.url).href;
 
 function AuthPage() {
   const [form, setForm] = useState('login');

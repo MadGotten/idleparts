@@ -1,4 +1,4 @@
-const bannerUrl = new URL('../assets/images/banner.png', import.meta.url).href;
+const bannerUrl = new URL('@/assets/images/banner.png', import.meta.url).href;
 
 const ImgSlider = () => {
   return (

@@ -1,11 +1,11 @@
 import { useContext, useEffect } from 'react';
 import { useQuery } from 'react-query';
 import { useLocation, useParams, useNavigate } from 'react-router-dom';
-import Categories from '../../components/Categories';
-import CartContext from '../../context/CartContext';
-import ProductCard from '../../components/ProductCard';
-import Pagination from '../../components/Pagination';
-import Skeleton from '../../components/Skeletons/CategoriesCards';
+import Categories from '@/components/Categories';
+import CartContext from '@/context/CartContext';
+import ProductCard from '@/components/ProductCard';
+import Pagination from '@/components/Pagination';
+import Skeleton from '@/components/skeletons/CategoriesCards';
 
 const CategoryPage = () => {
   const navigate = useNavigate();

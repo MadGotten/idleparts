@@ -1,8 +1,8 @@
 import { useEffect, useState, useContext } from 'react';
 import { useQuery } from 'react-query';
-import { AuthContext } from '../../context/AuthContext';
-import { DialogContext } from '../../context/DialogContext';
-import getCsrfToken from '../../hooks/useCsrfToken';
+import { AuthContext } from '@/context/AuthContext';
+import { DialogContext } from '@/context/DialogContext';
+import getCsrfToken from '@/hooks/useCsrfToken';
 
 const getUserCredentials = async () => {
   const response = await fetch(`${import.meta.env.VITE_APP_DOMAIN}/account`, {

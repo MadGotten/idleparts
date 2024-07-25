@@ -1,7 +1,7 @@
 import { memo, useContext } from 'react';
 import { Link } from 'react-router-dom';
-import { AuthContext } from '../../context/AuthContext';
-import { logoutUser } from '../../hooks/useAuth';
+import { AuthContext } from '@/context/AuthContext';
+import { logoutUser } from '@/hooks/useAuth';
 
 const AccountMenu = () => {
   const { user, logout } = useContext(AuthContext);

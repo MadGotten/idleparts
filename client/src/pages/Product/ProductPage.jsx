@@ -1,8 +1,8 @@
 import { useContext } from 'react';
 import { useQuery } from 'react-query';
 import { useParams } from 'react-router';
-import ProductCard from '../../components/Skeletons/ProductCard';
-import CartContext from '../../context/CartContext';
+import ProductCard from '@/components/skeletons/ProductCard';
+import CartContext from '@/context/CartContext';
 
 async function getProduct() {
   const response = await fetch(

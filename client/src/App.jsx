@@ -1,6 +1,6 @@
-import { AuthProvider } from './context/AuthContext';
-import { CartProvider } from './context/CartContext';
-import { DialogProvider } from './context/DialogContext';
+import { AuthProvider } from '@/context/AuthContext';
+import { CartProvider } from '@/context/CartContext';
+import { DialogProvider } from '@/context/DialogContext';
 import { BrowserRouter } from 'react-router-dom';
 import Paths from './Paths';
 import { QueryClient, QueryClientProvider } from 'react-query';

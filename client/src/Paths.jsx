@@ -1,18 +1,18 @@
 import { useContext, lazy, Suspense } from 'react';
 import { Routes, Route, Navigate } from 'react-router-dom';
-import { AuthContext } from './context/AuthContext';
-import Layout from './components/Layout/Layout';
-const HomePage = lazy(() => import('./pages/Homepage/HomePage.jsx'));
-const AuthPage = lazy(() => import('./pages/AuthPage/AuthPage.jsx'));
-const NotFoundPage = lazy(() => import('./pages/NotFound/NotFoundPage.jsx'));
-const CartPage = lazy(() => import('./pages/Cart/CartPage.jsx'));
-const AccountPage = lazy(() => import('./pages/Account/AccountPage.jsx'));
-const ProductPage = lazy(() => import('./pages/Product/ProductPage.jsx'));
-const SearchPage = lazy(() => import('./pages/Product/SearchPage.jsx'));
-const CategoryPage = lazy(() => import('./pages/Category/CategoryPage.jsx'));
-const OrdersPage = lazy(() => import('./pages/Order/OrdersPage.jsx'));
-const OrdersDetailPage = lazy(() => import('./pages/Order/OrdersDetailPage.jsx'));
-const WishlistPage = lazy(() => import('./pages/Wishlist/WishlistPage.jsx'));
+import { AuthContext } from '@/context/AuthContext';
+import Layout from '@/components/layout/Layout';
+const HomePage = lazy(() => import('@/pages/Homepage/HomePage.jsx'));
+const AuthPage = lazy(() => import('@/pages/AuthPage/AuthPage.jsx'));
+const NotFoundPage = lazy(() => import('@/pages/NotFound/NotFoundPage.jsx'));
+const CartPage = lazy(() => import('@/pages/Cart/CartPage.jsx'));
+const AccountPage = lazy(() => import('@/pages/Account/AccountPage.jsx'));
+const ProductPage = lazy(() => import('@/pages/Product/ProductPage.jsx'));
+const SearchPage = lazy(() => import('@/pages/Product/SearchPage.jsx'));
+const CategoryPage = lazy(() => import('@/pages/Category/CategoryPage.jsx'));
+const OrdersPage = lazy(() => import('@/pages/Order/OrdersPage.jsx'));
+const OrdersDetailPage = lazy(() => import('@/pages/Order/OrdersDetailPage.jsx'));
+const WishlistPage = lazy(() => import('@/pages/Wishlist/WishlistPage.jsx'));
 
 const Paths = () => {
   const { user } = useContext(AuthContext);

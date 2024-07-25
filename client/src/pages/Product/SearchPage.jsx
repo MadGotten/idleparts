@@ -1,10 +1,10 @@
 import { useContext, useEffect, useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import { useQuery } from 'react-query';
-import Categories from '../../components/Categories';
-import CartContext from '../../context/CartContext';
-import ProductCard from '../../components/ProductCard';
-import Spinner from '../../components/Spinner';
+import Categories from '@/components/Categories';
+import CartContext from '@/context/CartContext';
+import ProductCard from '@/components/ProductCard';
+import Spinner from '@/components/Spinner';
 
 const SearchPage = () => {
   const { addProduct } = useContext(CartContext);

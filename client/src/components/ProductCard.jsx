@@ -1,4 +1,4 @@
-import Product from '../components/Product';
+import Product from './Product';
 
 const ProductCard = ({ items, addProduct }) => {
   return (

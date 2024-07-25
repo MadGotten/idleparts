@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import { categories } from '../assets/constants';
+import { categories } from '@/assets/constants';
 
 const Categories = () => {
   return (

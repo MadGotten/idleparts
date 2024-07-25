@@ -1,9 +1,9 @@
 import { useState, useRef } from 'react';
 import { useQuery } from 'react-query';
-import Categories from '../../components/Categories';
-import ImgSlider from '../../components/ImgSlider';
-import Skeleton from '../../components/Skeletons/HomepageCards';
-import Product from '../../components/Product';
+import Categories from '@/components/Categories';
+import ImgSlider from '@/components/ImgSlider';
+import Skeleton from '@/components/skeletons/HomepageCards';
+import Product from '@/components/Product';
 
 async function getProducts() {
   const response = await fetch(`${import.meta.env.VITE_APP_DOMAIN}/products`, {

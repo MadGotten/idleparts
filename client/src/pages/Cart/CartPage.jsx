@@ -1,8 +1,8 @@
 import { useState, useContext, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import CartContext from '../../context/CartContext';
-import AuthContext from '../../context/AuthContext';
-import Spinner from '../../components/Spinner';
+import CartContext from '@/context/CartContext';
+import AuthContext from '@/context/AuthContext';
+import Spinner from '@/components/Spinner';
 
 function CartPage() {
   const { cartProducts, clearCart } = useContext(CartContext);

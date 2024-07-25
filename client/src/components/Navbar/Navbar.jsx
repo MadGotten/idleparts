@@ -1,11 +1,11 @@
 import { useState, useContext, useRef, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import CartContext from '../../context/CartContext';
+import CartContext from '@/context/CartContext';
 import MobileMenu from './MobileMenu';
 import AccountMenu from './AccountMenu';
 
-const logoUrl = new URL('../../assets/images/logo.png', import.meta.url).href;
-const userUrl = new URL('../../assets/images/user.png', import.meta.url).href;
+const logoUrl = new URL('@/assets/images/logo.png', import.meta.url).href;
+const userUrl = new URL('@/assets/images/user.png', import.meta.url).href;
 
 function Navbar() {
   const { cartProducts } = useContext(CartContext);

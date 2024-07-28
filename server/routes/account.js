@@ -2,7 +2,7 @@ const express = require('express');
 const User = require('../models/user.model');
 const Order = require('../models/order.model');
 const auth = require('../middleware/auth');
-const { body } = require('express-validator');
+const { body, matchedData, validationResult } = require('express-validator');
 const bcrypt = require('bcrypt');
 const csrfProtect = require('csurf')({ cookie: true });
 
@@ -23,28 +23,62 @@ router.get('/', async (req, res) => {
   }
 });
 
-router.post(
-  '/',
+router.put(
+  '/email',
   csrfProtect,
-  [body('email').trim().isEmail().withMessage('Please enter a valid email'), body('password')],
+  body('email').trim().isEmail().withMessage('Please enter a valid email'),
   async (req, res) => {
-    try {
-      const { email, password } = req.body;
-      const user = await User.findById(req.session.user_id);
-
-      if (email) {
+    const result = validationResult(req);
+    if (result.isEmpty()) {
+      const data = matchedData(req);
+      try {
+        const { email } = data;
+        const user = await User.findById(req.session.user_id);
         user.email = email;
-      }
-      if (password) {
-        user.password = await hashPassword(password);
-      }
 
-      await user.save();
-      req.session.user = email;
-      res.status(200).json({ message: 'Account updated successfully' });
-    } catch (error) {
-      res.status(500).json({ message: 'Error updating account' });
+        await user.save();
+        req.session.user = email;
+        return res.status(200).json({ message: 'Account updated successfully' });
+      } catch (error) {
+        return res.status(500).json({ message: 'Error updating account' });
+      }
     }
+    res.status(400).json({ status: false, message: result.array() });
+  }
+);
+
+router.put(
+  '/password',
+  csrfProtect,
+  body('password')
+    .isStrongPassword({
+      minLength: 8,
+      minUppercase: 1,
+      minLowercase: 1,
+      minNumbers: 1,
+      minSymbols: 1,
+    })
+    .withMessage(
+      'Password must be at least 8 characters and must contain at least one big letter, number and special character'
+    ),
+  async (req, res) => {
+    const result = validationResult(req);
+    if (result.isEmpty()) {
+      const data = matchedData(req);
+      try {
+        const { password } = data;
+        const user = await User.findById(req.session.user_id);
+
+        user.password = await hashPassword(password);
+
+        await user.save();
+        return res.status(200).json({ message: 'Account updated successfully' });
+      } catch (error) {
+        return res.status(500).json({ message: 'Error updating account' });
+      }
+    }
+
+    res.status(400).json({ status: false, message: result.array() });
   }
 );
 

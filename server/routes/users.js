@@ -31,6 +31,9 @@ const validate = (validations) => {
   };
 };
 
+const checkEmailChain = () =>
+  body('email').trim().isEmail().withMessage('Please enter a valid email');
+
 router.get('/authenticate', async (req, res) => {
   if (req.session.user) {
     res.status(200).json({ credentials: { user: req.session.user } });
@@ -42,7 +45,10 @@ router.get('/authenticate', async (req, res) => {
 router.post(
   '/login',
   csrfProtect,
-  [body('email').trim().isEmail().withMessage('Please enter a valid email'), body('password')],
+  validate([
+    checkEmailChain(),
+    body('password').notEmpty().withMessage('Password cannot be empty'),
+  ]),
   async (req, res) => {
     const { email, password } = req.body;
     const user = await User.findOne({
@@ -66,10 +72,18 @@ router.post(
   '/register',
   csrfProtect,
   validate([
-    body('email').trim().isEmail().withMessage('Please enter a valid email'),
+    checkEmailChain(),
     body('password')
-      .isLength({ min: 8 })
-      .withMessage('Password must be at least 8 characters long'),
+      .isStrongPassword({
+        minLength: 8,
+        minUppercase: 1,
+        minLowercase: 1,
+        minNumbers: 1,
+        minSymbols: 1,
+      })
+      .withMessage(
+        'Password must be at least 8 characters and must contain at least one big letter, number and special character'
+      ),
     body('password2').custom((value, { req }) => {
       if (value !== req.body.password) {
         throw new Error('Passwords do not match');

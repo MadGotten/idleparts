@@ -22,6 +22,7 @@ const AccountPage = () => {
   const [password, setPassword] = useState('********');
   const [isEditingEmail, setIsEditingEmail] = useState(false);
   const [isEditingPassword, setIsEditingPassword] = useState(false);
+  const [error, setError] = useState(null);
   const { data } = useQuery(['accountCredentials'], () => getUserCredentials());
 
   useEffect(() => {
@@ -39,16 +40,19 @@ const AccountPage = () => {
     openDialog('Are you sure you want to change your email?', async () => {
       try {
         const csrfToken = await getCsrfToken();
-        const response = await fetch(`${import.meta.env.VITE_APP_DOMAIN}/account`, {
-          method: 'POST',
+        const response = await fetch(`${import.meta.env.VITE_APP_DOMAIN}/account/email`, {
+          method: 'PUT',
           headers: { 'Content-Type': 'application/json', 'X-CSRF-Token': csrfToken },
           body: JSON.stringify({ email }),
           credentials: 'include',
         });
+        const data = await response?.json();
         if (response.ok) {
           setIsEditingEmail(false);
+          setError(null);
           console.log('Email updated successfully');
         } else {
+          setError({ type: 'email', msg: data.message[0].msg });
           console.error('Failed to update email');
         }
       } catch (error) {
@@ -61,16 +65,19 @@ const AccountPage = () => {
     openDialog('Are you sure you want to change your password?', async () => {
       try {
         const csrfToken = await getCsrfToken();
-        const response = await fetch(`${import.meta.env.VITE_APP_DOMAIN}/account`, {
-          method: 'POST',
+        const response = await fetch(`${import.meta.env.VITE_APP_DOMAIN}/account/password`, {
+          method: 'PUT',
           headers: { 'Content-Type': 'application/json', 'X-CSRF-Token': csrfToken },
           body: JSON.stringify({ password }),
           credentials: 'include',
         });
+        const data = await response?.json();
         if (response.ok) {
           setIsEditingPassword(false);
+          setError(null);
           console.log('Password updated successfully');
         } else {
+          setError({ type: 'password', msg: data.message[0].msg });
           console.error('Failed to update password');
         }
       } catch (error) {
@@ -140,6 +147,9 @@ const AccountPage = () => {
                 Cancel
               </button>
             )}
+            {error && error.type === 'email' && (
+              <div className="text-sm text-red-500 pl-2 pt-2">{error.msg}</div>
+            )}
           </div>
           <div className="w-full relative">
             <label className="block text-sm font-medium text-slate-700">Password</label>
@@ -175,6 +185,9 @@ const AccountPage = () => {
               >
                 Cancel
               </button>
+            )}
+            {error && error.type === 'password' && (
+              <div className="text-sm text-red-500 pl-2 pt-2">{error.msg}</div>
             )}
           </div>
         </form>

@@ -20,14 +20,14 @@ function OrdersDetailPage() {
   return (
     <div>
       <div className="flex flex-col items-start gap-2">
-        <h1 className="text-2xl font-semibold">Order #{id}</h1>
-        <div className="flex flex-col">
+        <h1 className="text-2xl font-semibold break-all">Order #{id}</h1>
+        <div className="flex flex-col w-full">
           {status === 'error' || isLoading ? (
             <></>
           ) : (
             <>
               {data ? (
-                <div className="flex flex-col gap-4">
+                <div className="flex flex-col gap-4 w-full">
                   <div className="space-y-">
                     <p>{new Date(data.created_at).toLocaleString()}</p>
                     {data.price && <p>Price: {data.price}$</p>}
@@ -35,7 +35,7 @@ function OrdersDetailPage() {
                   {data.products.map((product) => {
                     return (
                       <div
-                        className="flex w-[400px] gap-4 p-4 bg-slate-50 shadow-md drop-shadow-md rounded-lg"
+                        className="flex w-full min-w-[260px] max-w-[400px] gap-4 p-4 bg-slate-50 shadow-md drop-shadow-md rounded-lg"
                         key={product.product_id._id}
                       >
                         <Link to={'/p/' + product.product_id._id}>

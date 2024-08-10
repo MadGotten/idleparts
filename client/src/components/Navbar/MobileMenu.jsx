@@ -32,7 +32,7 @@ const MobileMenu = ({ menuOpen, setMenuOpen }) => (
         <li>Wishlist</li>
       </Link>
       <li>
-        <Link to="/">Support</Link>
+        <Link to="/help">Support</Link>
       </li>
     </ul>
     <div className="text-xl">

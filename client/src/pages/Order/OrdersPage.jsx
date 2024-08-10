@@ -27,7 +27,7 @@ function OrdersPage() {
     <div>
       <div className="flex flex-col items-start gap-4">
         <h1 className="text-2xl font-semibold">Your orders</h1>
-        <div className="flex flex-col gap-4  w-[400px]">
+        <div className="flex flex-col gap-4 w-full max-w-[400px]">
           {status === 'error' || isLoading ? (
             <></>
           ) : data && data[1].length > 0 ? (
@@ -44,12 +44,12 @@ function OrdersPage() {
                   )
                   .map((order) => {
                     return (
-                      <div className="flex flex-row justify-between" key={order._id}>
+                      <div className="flex flex-col sm:flex-row justify-between" key={order._id}>
                         <Link to={'/account/orders/' + order._id} className="text-blue-600">
-                          Order #{order._id}
+                          Order <span className="break-words">#{order._id}</span>
                         </Link>
                         <p className="w-20">
-                          <span className="mr-2">|</span>
+                          <span className="mr-2 hidden sm:inline-block">|</span>
                           <span>{new Date(order.created_at).toLocaleTimeString()}</span>
                         </p>
                       </div>

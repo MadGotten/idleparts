@@ -56,7 +56,7 @@ const HomePage = () => {
         <div ref={outerWidthBest} className="flex flex-row relative justify-start items-center">
           <button
             onClick={() => swipePrev(translateXpBest, setTranslateXpBest)}
-            className="absolute border z-10 border-blue-600 flex items-center justify-center text-sm sm:text-base md:text-lg lg:text-xl text-blue-600 rounded-full w-6 h-6 sm:w-8 sm:h-8 md:w-10 md:h-10 lg:w-12 lg:h-12 hover:cursor-pointer hover:bg-blue-600 hover:text-white"
+            className="absolute border z-10 border-blue-600 flex items-center justify-center text-sm sm:text-base md:text-lg lg:text-xl text-blue-600 rounded-full w-8 h-8 md:w-10 md:h-10 lg:w-12 lg:h-12 hover:cursor-pointer hover:bg-blue-600 hover:text-white"
           >
             <i className="fa-solid fa-arrow-left"></i>
           </button>
@@ -64,7 +64,7 @@ const HomePage = () => {
             onClick={() =>
               swipeNext(innerWidthBest, outerWidthBest, translateXpBest, setTranslateXpBest)
             }
-            className="absolute border z-10 right-0 border-blue-600 flex items-center justify-center text-sm sm:text-base md:text-lg lg:text-xl text-blue-600 rounded-full w-6 h-6  sm:w-8 sm:h-8 md:w-10 md:h-10 lg:w-12 lg:h-12 hover:cursor-pointer hover:bg-blue-600 hover:text-white"
+            className="absolute border z-10 right-0 border-blue-600 flex items-center justify-center text-sm sm:text-base md:text-lg lg:text-xl text-blue-600 rounded-full w-8 h-8 md:w-10 md:h-10 lg:w-12 lg:h-12 hover:cursor-pointer hover:bg-blue-600 hover:text-white"
           >
             <i className="fa-solid fa-arrow-right"></i>
           </button>
@@ -91,7 +91,7 @@ const HomePage = () => {
         <div ref={outerWidthNewest} className="flex flex-row relative justify-start items-center">
           <button
             onClick={() => swipePrev(translateXpNewest, setTranslateXpNewest)}
-            className="absolute border z-10 border-blue-600 flex items-center justify-center text-sm sm:text-base md:text-lg lg:text-xl text-blue-600 rounded-full w-6 h-6 sm:w-8 sm:h-8 md:w-10 md:h-10 lg:w-12 lg:h-12 hover:cursor-pointer hover:bg-blue-600 hover:text-white"
+            className="absolute border z-10 border-blue-600 flex items-center justify-center text-sm sm:text-base md:text-lg lg:text-xl text-blue-600 rounded-full w-8 h-8 md:w-10 md:h-10 lg:w-12 lg:h-12 hover:cursor-pointer hover:bg-blue-600 hover:text-white"
           >
             <i className="fa-solid fa-arrow-left"></i>
           </button>
@@ -99,7 +99,7 @@ const HomePage = () => {
             onClick={() =>
               swipeNext(innerWidthNewest, outerWidthNewest, translateXpNewest, setTranslateXpNewest)
             }
-            className="absolute border z-10 right-0 border-blue-600 flex items-center justify-center text-sm sm:text-base md:text-lg lg:text-xl text-blue-600 rounded-full w-6 h-6  sm:w-8 sm:h-8 md:w-10 md:h-10 lg:w-12 lg:h-12 hover:cursor-pointer hover:bg-blue-600 hover:text-white"
+            className="absolute border z-10 right-0 border-blue-600 flex items-center justify-center text-sm sm:text-base md:text-lg lg:text-xl text-blue-600 rounded-full w-8 h-8 md:w-10 md:h-10 lg:w-12 lg:h-12 hover:cursor-pointer hover:bg-blue-600 hover:text-white"
           >
             <i className="fa-solid fa-arrow-right"></i>
           </button>

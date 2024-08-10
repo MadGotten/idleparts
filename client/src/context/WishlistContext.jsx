@@ -1,16 +1,23 @@
-import { useState, createContext, useEffect } from 'react';
+import { useState, createContext, useEffect, useContext } from 'react';
+import AuthContext from './AuthContext';
 
 export const WishlistContext = createContext({});
 
 export function WishlistProvider({ children }) {
+  const { user } = useContext(AuthContext);
   const [isLoading, setIsLoading] = useState(false);
   const [isError, setIsError] = useState(false);
   const [wishlist, setWishlist] = useState([]);
   const [wishlistCount, setWishlistCount] = useState(0);
 
   useEffect(() => {
-    fetchWishlistItems();
-  }, []);
+    if (user) {
+      fetchWishlistItems();
+    } else {
+      setWishlist([]);
+      setWishlistCount(0);
+    }
+  }, [user]);
 
   const fetchWishlistItems = async () => {
     setIsLoading(true);

@@ -8,6 +8,7 @@ function CartPage() {
   const { cartProducts, clearCart } = useContext(CartContext);
   const { user } = useContext(AuthContext);
   const [isLoading, setIsLoading] = useState(true);
+  const [isUpdating, setIsUpdating] = useState(false);
   const [products, setProducts] = useState([]);
   const [total, setTotal] = useState(0);
   const navigate = useNavigate();
@@ -45,6 +46,8 @@ function CartPage() {
 
   const buyproducts = async () => {
     if (user) {
+      if (cartProducts.length <= 0) return;
+      setIsUpdating(true);
       const response = await fetch(`${import.meta.env.VITE_APP_DOMAIN}/cart/checkout`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -53,6 +56,7 @@ function CartPage() {
         body: JSON.stringify({ ids: cartProducts }),
       });
       await response?.json();
+      setIsUpdating(false);
       clearCart();
     } else {
       navigate('/login');
@@ -74,7 +78,7 @@ function CartPage() {
             {!cartProducts?.length && <div>Your cart is empty</div>}
             {cartProducts?.length > 0 && (
               <>
-                <h2 className="text-xl font-medium mb-4">Cart: </h2>
+                <h1 className="text-2xl font-semibold mb-4">Cart</h1>
                 <div className="flex flex-col gap-6">
                   {products.map((products) => (
                     <div
@@ -127,7 +131,21 @@ function CartPage() {
                 onClick={() => buyproducts()}
                 className="flex justify-center w-full bg-blue-600 rounded-lg p-2 text-white"
               >
-                Pay now
+                {isUpdating ? (
+                  <svg
+                    className="animate-spin h-6 w-full fill-white"
+                    viewBox="0 0 24 24"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M12,1A11,11,0,1,0,23,12,11,11,0,0,0,12,1Zm0,19a8,8,0,1,1,8-8A8,8,0,0,1,12,20Z"
+                      opacity=".25"
+                    />
+                    <path d="M10.14,1.16a11,11,0,0,0-9,8.92A1.59,1.59,0,0,0,2.46,12,1.52,1.52,0,0,0,4.11,10.7a8,8,0,0,1,6.66-6.61A1.42,1.42,0,0,0,12,2.69h0A1.57,1.57,0,0,0,10.14,1.16Z" />
+                  </svg>
+                ) : (
+                  'Pay now'
+                )}
               </button>
             </div>
           </div>

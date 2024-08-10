@@ -20,13 +20,13 @@ function OrdersDetailPage() {
   return (
     <div>
       <div className="flex flex-col items-start gap-2">
-        <h1 className="text-2xl font-semibold">Your orders</h1>
+        <h1 className="text-2xl font-semibold">Order #{id}</h1>
         <div className="flex flex-col">
           {status === 'error' || isLoading ? (
             <></>
           ) : (
             <>
-              {data && (
+              {data ? (
                 <div className="flex flex-col gap-4">
                   <div className="space-y-">
                     <p>{new Date(data.created_at).toLocaleString()}</p>
@@ -55,6 +55,8 @@ function OrdersDetailPage() {
                     );
                   })}
                 </div>
+              ) : (
+                <p>Order was not found</p>
               )}
             </>
           )}

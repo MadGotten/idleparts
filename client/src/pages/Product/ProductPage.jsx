@@ -1,29 +1,36 @@
-import { useContext } from 'react';
+import { useContext, useState } from 'react';
 import { useQuery } from 'react-query';
 import { useParams } from 'react-router';
 import ProductCard from '@/components/skeletons/ProductCard';
 import CartContext from '@/context/CartContext';
 import WishlistContext from '@/context/WishlistContext';
 
-async function getProduct() {
-  const response = await fetch(
-    `${import.meta.env.VITE_APP_DOMAIN}/products/` + window.location.pathname.slice(3),
-    {
-      method: 'GET',
-      headers: { 'Content-Type': 'application/json' },
-      mode: 'cors',
-    }
-  );
+const getProduct = async (product_id) => {
+  const response = await fetch(`${import.meta.env.VITE_APP_DOMAIN}/products/${product_id}`, {
+    method: 'GET',
+    headers: { 'Content-Type': 'application/json' },
+    mode: 'cors',
+  });
   const data = await response?.json();
 
   return data.items;
-}
+};
 
 function ProductPage() {
   const { product_id } = useParams();
-  const { isLoading, data, status } = useQuery(['product', product_id], getProduct);
+  const { isLoading, data, status } = useQuery(['product', product_id], () =>
+    getProduct(product_id)
+  );
   const { addProduct } = useContext(CartContext);
   const { addToWishlist } = useContext(WishlistContext);
+  const [isUpdating, setIsUpdating] = useState(false);
+
+  const handleAddToWishlist = async () => {
+    if (isUpdating) return;
+    setIsUpdating(true);
+    await addToWishlist(product_id);
+    setIsUpdating(false);
+  };
 
   return (
     <>
@@ -52,10 +59,33 @@ function ProductPage() {
             </div>
             <div className="flex flex-col gap-4">
               <button
-                onClick={() => addToWishlist(data._id)}
+                onClick={handleAddToWishlist}
                 className="bg-orange-400 hover:bg-orange-500 rounded-lg text-center p-2 text-sm text-slate-200 whitespace-nowrap"
               >
-                Add to wishlist
+                {isUpdating ? (
+                  <svg
+                    className="animate-spin h-5 w-full text-white"
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                  >
+                    <circle
+                      className="opacity-25"
+                      cx="12"
+                      cy="12"
+                      r="10"
+                      stroke="currentColor"
+                      strokeWidth="4"
+                    ></circle>
+                    <path
+                      className="opacity-75"
+                      fill="currentColor"
+                      d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z"
+                    ></path>
+                  </svg>
+                ) : (
+                  'Add to Wishlist'
+                )}
               </button>
               <button
                 onClick={() => addProduct(data._id)}

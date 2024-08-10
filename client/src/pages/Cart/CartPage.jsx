@@ -13,7 +13,6 @@ function CartPage() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    console.log(cartProducts);
     if (cartProducts.length > 0) {
       setIsLoading(true);
       fetch(`${import.meta.env.VITE_APP_DOMAIN}/cart`, {

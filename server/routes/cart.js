@@ -62,14 +62,14 @@ router.post('/checkout', auth, async (req, res) => {
     );
     await Promise.all(updatePromises);
 
-    history = await Order.create({
+    const history = await Order.create({
       user_id: req.session.user_id,
       price: Number(totalPrice).toFixed(2),
       products: Object.values(productMap),
       created_at: new Date(),
     });
 
-    res.status(200).json({ message: 'Checkout successful', order });
+    res.status(200).json({ message: 'Checkout successful', order: history });
   } catch (err) {
     res.status(500).json({ message: 'Server error' });
   }

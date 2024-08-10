@@ -2,8 +2,8 @@ import { Link } from 'react-router-dom';
 
 const Footer = () => {
   return (
-    <div className="w-full h-[22rem] bg-blue-600 text-white mt-auto">
-      <div className="2xl:container w-full flex flex-col mx-auto h-full p-8 md:py-10 md:px-16 gap-8">
+    <div className="w-full bg-blue-600 text-white mt-auto">
+      <div className="2xl:container w-full flex flex-col mx-auto h-full p-8 md:py-10 md:px-16 gap-16">
         <div className="grid grid-cols-2 grid-flow-row max-w-6xl gap-8 text-sm sm:gap-4 sm:grid-cols-4 sm:text-base">
           <ul className="flex flex-col gap-2">
             <li className="text-[0.8rem] uppercase font-semibold tracking-wider">Product</li>

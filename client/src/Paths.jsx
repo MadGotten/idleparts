@@ -12,6 +12,7 @@ const SearchPage = lazy(() => import('@/pages/Product/SearchPage.jsx'));
 const CategoryPage = lazy(() => import('@/pages/Category/CategoryPage.jsx'));
 const OrdersPage = lazy(() => import('@/pages/Order/OrdersPage.jsx'));
 const OrdersDetailPage = lazy(() => import('@/pages/Order/OrdersDetailPage.jsx'));
+const HelpCenter = lazy(() => import('@/pages/HelpCenter/HelpCenter.jsx'));
 const WishlistPage = lazy(() => import('@/pages/Wishlist/WishlistPage.jsx'));
 
 const Paths = () => {
@@ -37,6 +38,7 @@ const Paths = () => {
         />
         <Route path="/" element={<Layout />}>
           <Route index element={<HomePage />} />
+          <Route path="/help" element={<HelpCenter />} />
           <Route path="/cart" element={<CartPage />} />
           <Route
             path="/account"

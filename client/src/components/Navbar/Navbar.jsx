@@ -73,11 +73,13 @@ function Navbar() {
         </div>
       </div>
       <ul className="hidden md:flex flex-row items-center gap-6">
-        <li className="flex w-8 text-2xl hover:text-blue-600">
-          <button className="w-full h-full">
-            <i className="fa-regular fa-comment"></i>
-          </button>
-        </li>
+        <Link to="/help" className="hover:text-blue-600">
+          <li className="flex w-8 text-2xl">
+            <button className="w-full h-full">
+              <i className="fa-regular fa-comment"></i>
+            </button>
+          </li>
+        </Link>
         <Link to="/account/wishlist" className="hover:text-blue-600">
           <li className="flex w-8 text-2xl relative">
             <button className="w-full h-full">

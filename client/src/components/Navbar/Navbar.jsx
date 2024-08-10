@@ -1,6 +1,7 @@
 import { useState, useContext, useRef, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import CartContext from '@/context/CartContext';
+import WishlistContext from '@/context/WishlistContext';
 import MobileMenu from './MobileMenu';
 import AccountMenu from './AccountMenu';
 
@@ -9,6 +10,7 @@ const userUrl = new URL('@/assets/images/user.png', import.meta.url).href;
 
 function Navbar() {
   const { cartProducts } = useContext(CartContext);
+  const { wishlistCount } = useContext(WishlistContext);
   const [menuOpen, setMenuOpen] = useState(false);
   const [searchContext, setSearchContext] = useState('');
   const [isVisible, setIsVisible] = useState(false);
@@ -79,6 +81,11 @@ function Navbar() {
         <Link to="/account/wishlist" className="hover:text-blue-600">
           <li className="flex w-8 text-2xl relative">
             <button className="w-full h-full">
+              {wishlistCount > 0 && (
+                <div className="w-5 h-5 rounded-full bg-orange-600 text-white absolute left-5 bottom-4 text-sm flex justify-center items-center">
+                  {wishlistCount}
+                </div>
+              )}
               <i className="fa-regular fa-heart"></i>
             </button>
           </li>

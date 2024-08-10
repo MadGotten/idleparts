@@ -3,6 +3,7 @@ import { useQuery } from 'react-query';
 import { useParams } from 'react-router';
 import ProductCard from '@/components/skeletons/ProductCard';
 import CartContext from '@/context/CartContext';
+import WishlistContext from '@/context/WishlistContext';
 
 async function getProduct() {
   const response = await fetch(
@@ -18,23 +19,11 @@ async function getProduct() {
   return data.items;
 }
 
-async function addWishlist(productId) {
-  const response = await fetch(`${import.meta.env.VITE_APP_DOMAIN}/account/wishlist`, {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    mode: 'cors',
-    credentials: 'include',
-    body: JSON.stringify({ productId: productId }),
-  });
-  const data = await response?.json();
-
-  return data.wishlist;
-}
-
 function ProductPage() {
   const { product_id } = useParams();
   const { isLoading, data, status } = useQuery(['product', product_id], getProduct);
   const { addProduct } = useContext(CartContext);
+  const { addToWishlist } = useContext(WishlistContext);
 
   return (
     <>
@@ -63,7 +52,7 @@ function ProductPage() {
             </div>
             <div className="flex flex-col gap-4">
               <button
-                onClick={() => addWishlist(data._id)}
+                onClick={() => addToWishlist(data._id)}
                 className="bg-orange-400 hover:bg-orange-500 rounded-lg text-center p-2 text-sm text-slate-200 whitespace-nowrap"
               >
                 Add to wishlist

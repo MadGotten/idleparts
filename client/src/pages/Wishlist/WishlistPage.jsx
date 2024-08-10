@@ -1,49 +1,19 @@
-import { useState, useEffect } from 'react';
-import { useQuery } from 'react-query';
+import { useContext } from 'react';
 import { Link } from 'react-router-dom';
-
-const getWishlist = async () => {
-  const response = await fetch(`${import.meta.env.VITE_APP_DOMAIN}/account/wishlist`, {
-    method: 'GET',
-    headers: { 'Content-Type': 'application/json' },
-    mode: 'cors',
-    credentials: 'include',
-  });
-  const data = await response?.json();
-
-  return data.wishlist;
-};
+import { WishlistContext } from '@/context/WishlistContext';
 
 function WishlistPage() {
-  const { isLoading, data, status } = useQuery('wishlist', getWishlist);
-  const [wishlist, SetWishlist] = useState([]);
-
-  const deleteWishlist = async (productId) => {
-    let updatedWishlist = wishlist.filter((product) => {
-      return product._id !== productId;
-    });
-    SetWishlist(updatedWishlist);
-
-    await fetch(`${import.meta.env.VITE_APP_DOMAIN}/account/wishlist/` + productId, {
-      method: 'DELETE',
-      headers: { 'Content-Type': 'application/json' },
-      mode: 'cors',
-      credentials: 'include',
-    });
-  };
-
-  useEffect(() => {
-    SetWishlist(data);
-  }, [data]);
+  const { wishlist, wishlistCount, removeFromWishlist, isLoading, isError } =
+    useContext(WishlistContext);
 
   return (
     <div>
       <div className="flex flex-col items-start gap-4">
         <h1 className="text-2xl font-semibold">Wishlist</h1>
         <div className="flex flex-col gap-4 w-96">
-          {status === 'error' || isLoading ? (
+          {isError || isLoading ? (
             <></>
-          ) : wishlist && wishlist.length > 0 ? (
+          ) : wishlist && wishlistCount > 0 ? (
             wishlist.map((product) => {
               return (
                 <div
@@ -63,7 +33,7 @@ function WishlistPage() {
                     <p>{product.name}</p>
                     <div className="flex justify-end gap-2">
                       <button
-                        onClick={() => deleteWishlist(product._id)}
+                        onClick={() => removeFromWishlist(product._id)}
                         className="text-blue-600 rounded-lg"
                       >
                         <i className="fa-solid fa-trash"></i>

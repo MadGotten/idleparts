@@ -1,6 +1,7 @@
 const express = require('express');
 const User = require('../models/user.model');
 const Order = require('../models/order.model');
+const Product = require('../models/product.model');
 const auth = require('../middleware/auth');
 const { body, matchedData, validationResult } = require('express-validator');
 const bcrypt = require('bcrypt');
@@ -134,28 +135,45 @@ router.get('/orders/:id', async (req, res) => {
 });
 
 router.get('/wishlist', async (req, res) => {
-  const user = await User.findById(req.session.user_id).populate('wishlist');
+  try {
+    const user = await User.findById(req.session.user_id).populate('wishlist');
+    if (!user) {
+      return res.status(404).json({ message: 'User not found' });
+    }
 
-  res.status(200).json({ wishlist: user.wishlist });
+    res.status(200).json({ wishlist: user.wishlist });
+  } catch (error) {
+    res.status(500).json({ message: 'Server error' });
+  }
 });
 
 router.post('/wishlist', async (req, res) => {
   try {
-    const user = await User.findById(req.session.user_id);
     const { productId } = req.body;
-
     if (!productId) {
       return res.status(400).json({ message: 'Product ID is required' });
+    }
+
+    const user = await User.findById(req.session.user_id);
+    if (!user) {
+      return res.status(404).json({ message: 'User not found' });
     }
 
     if (user.wishlist.includes(productId)) {
       return res.status(400).json({ message: 'Product already in wishlist' });
     }
 
+    const product = await Product.exists({ _id: productId });
+    if (!product) {
+      return res.status(404).json({ message: 'Product not found' });
+    }
+
     user.wishlist.push(productId);
     await user.save();
 
-    res.status(201).json({ message: 'Product added to wishlist', wishlist: user.wishlist });
+    const wishlist = await Product.find({ _id: { $in: user.wishlist } });
+
+    res.status(201).json({ message: 'Product added to wishlist', wishlist: wishlist });
   } catch (err) {
     res.status(500).json({ message: 'Server error' });
   }
@@ -163,7 +181,11 @@ router.post('/wishlist', async (req, res) => {
 
 router.delete('/wishlist/:id', async (req, res) => {
   try {
-    const user = await User.findById(req.session.user_id).populate('wishlist');
+    const user = await User.findById(req.session.user_id);
+    if (!user) {
+      return res.status(404).json({ message: 'User not found' });
+    }
+
     user.wishlist.pull(req.params.id);
     await user.save();
 

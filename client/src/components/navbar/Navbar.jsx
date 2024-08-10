@@ -9,7 +9,7 @@ const logoUrl = new URL('@/assets/images/logo.png', import.meta.url).href;
 const userUrl = new URL('@/assets/images/user.png', import.meta.url).href;
 
 function Navbar() {
-  const { cartProducts } = useContext(CartContext);
+  const { cartLength } = useContext(CartContext);
   const { wishlistCount } = useContext(WishlistContext);
   const [menuOpen, setMenuOpen] = useState(false);
   const [searchContext, setSearchContext] = useState('');
@@ -95,9 +95,9 @@ function Navbar() {
         <Link to="/cart" className="hover:text-blue-600">
           <li className="flex w-8 text-2xl relative">
             <button className="w-full h-full">
-              {cartProducts.length > 0 && (
+              {cartLength > 0 && (
                 <div className="w-5 h-5 rounded-full bg-blue-600 text-white absolute left-5 bottom-4 text-sm flex justify-center items-center">
-                  {cartProducts.length}
+                  {cartLength}
                 </div>
               )}
               <i className="fa-solid fa-cart-shopping"></i>

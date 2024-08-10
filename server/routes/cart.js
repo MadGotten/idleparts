@@ -25,34 +25,28 @@ router.post('/', async (req, res) => {
 });
 
 router.post('/checkout', auth, async (req, res) => {
-  const { ids } = req.body;
+  const { products } = req.body;
 
-  if (!ids || ids.length === 0) {
-    return res.status(400).json({ message: 'Invalid product IDs' });
+  if (!products || Object.keys(products).length === 0) {
+    return res.status(400).json({ message: 'Invalid products' });
   }
 
   try {
-    const productMap = ids.reduce((products, id) => {
-      products[id] = products[id]
-        ? { ...products[id], quantity: products[id].quantity + 1 }
-        : { product_id: id, quantity: 1 };
-      return products;
-    }, {});
-
     const productsToProcess = [];
+    const orderProducts = [];
     let totalPrice = 0;
 
-    const products = await Product.find({ _id: { $in: ids } });
+    const productsEx = await Product.find({ _id: Object.keys(products) });
 
-    for (const product of products) {
-      const orderProduct = productMap[product._id];
-      const newStock = product.stock - orderProduct.quantity;
+    for (const product of productsEx) {
+      const newStock = product.stock - products[product._id];
       if (newStock < 0) {
         console.error(`Insufficient stock for product ${product._id}`);
         return res.status(400).json({ message: `Insufficient stock for product ${product._id}` });
       } else {
         productsToProcess.push({ _id: product._id, stock: newStock });
-        totalPrice += Number(product.price * orderProduct.quantity);
+        orderProducts.push({ product_id: product._id, quantity: products[product._id] });
+        totalPrice += Number(product.price * products[product._id]);
       }
     }
 
@@ -65,12 +59,13 @@ router.post('/checkout', auth, async (req, res) => {
     const history = await Order.create({
       user_id: req.session.user_id,
       price: Number(totalPrice).toFixed(2),
-      products: Object.values(productMap),
+      products: orderProducts,
       created_at: new Date(),
     });
 
     res.status(200).json({ message: 'Checkout successful', order: history });
   } catch (err) {
+    console.log(err);
     res.status(500).json({ message: 'Server error' });
   }
 });

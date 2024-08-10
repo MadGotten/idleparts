@@ -5,7 +5,7 @@ import AuthContext from '@/context/AuthContext';
 import Spinner from '@/components/Spinner';
 
 function CartPage() {
-  const { cartProducts, clearCart } = useContext(CartContext);
+  const { cartProducts, cartLength, clearCart, updateProduct } = useContext(CartContext);
   const { user } = useContext(AuthContext);
   const [isLoading, setIsLoading] = useState(true);
   const [isUpdating, setIsUpdating] = useState(false);
@@ -13,14 +13,33 @@ function CartPage() {
   const [total, setTotal] = useState(0);
   const navigate = useNavigate();
 
+  const [customValues, setCustomValues] = useState({});
+  const [isCustom, setIsCustom] = useState({});
+
+  const handleSelectChange = (productId, value) => {
+    if (value === 'custom') {
+      setIsCustom((prev) => ({ ...prev, [productId]: true }));
+      setCustomValues((prev) => ({ ...prev, [productId]: '' }));
+    } else {
+      setIsCustom((prev) => ({ ...prev, [productId]: false }));
+      updateProduct(productId, Number(value));
+    }
+  };
+
+  const handleCustomInput = (productId, value) => {
+    const quantity = value > 0 ? value : 1;
+    updateProduct(productId, quantity);
+    setIsCustom((prev) => ({ ...prev, [productId]: false }));
+  };
+
   useEffect(() => {
-    if (cartProducts.length > 0) {
+    if (cartLength > 0) {
       setIsLoading(true);
       fetch(`${import.meta.env.VITE_APP_DOMAIN}/cart`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         mode: 'cors',
-        body: JSON.stringify({ ids: cartProducts }),
+        body: JSON.stringify({ ids: Object.keys(cartProducts) }),
       })
         .then((response) => {
           if (!response.ok) {
@@ -36,24 +55,22 @@ function CartPage() {
   }, [cartProducts]);
 
   useEffect(() => {
-    let amount = 0;
-    for (const productId of cartProducts) {
-      const price = products.find((product) => product._id === productId)?.price || 0;
-      amount += parseFloat(price);
-    }
+    const amount = products.reduce((sum, product) => {
+      const quantity = cartProducts[product._id] || 0;
+      return sum + product.price * quantity;
+    }, 0);
     setTotal(amount.toFixed(2));
   }, [cartProducts, products]);
 
   const buyproducts = async () => {
-    if (user) {
-      if (cartProducts.length <= 0) return;
+    if (user && cartLength > 0) {
       setIsUpdating(true);
       const response = await fetch(`${import.meta.env.VITE_APP_DOMAIN}/cart/checkout`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         mode: 'cors',
         credentials: 'include',
-        body: JSON.stringify({ ids: cartProducts }),
+        body: JSON.stringify({ products: cartProducts }),
       });
       await response?.json();
       setIsUpdating(false);
@@ -76,38 +93,71 @@ function CartPage() {
         <>
           <h1 className="text-2xl font-semibold mb-4">Cart</h1>
           <div className="flex flex-col md:flex-row w-full items-center sm:items-start md:justify-between gap-8 md:gap-4">
-            {!cartProducts?.length && 'Your cart is empty'}
-            {cartProducts?.length > 0 && (
+            {!cartLength && 'Your cart is empty'}
+            {cartLength > 0 && (
               <div className="flex flex-col gap-6 w-full md:w-fit">
-                {products.map((products) => (
+                {products.map((product) => (
                   <div
-                    key={products._id}
+                    key={product._id}
                     className="flex gap-4 p-4 bg-slate-50 shadow-md drop-shadow-md rounded-lg"
                   >
-                    <Link to={'/p/' + products._id} className="flex">
+                    <Link to={'/p/' + product._id} className="flex">
                       <img
-                        src={`${import.meta.env.VITE_APP_DOMAIN}/static/${products.img}`}
+                        src={`${import.meta.env.VITE_APP_DOMAIN}/static/${product.img}`}
                         alt="cpu"
                         className="min-w-24 w-24 sm:w-28 h-auto object-contain"
                       ></img>
                     </Link>
                     <div className="flex flex-col justify-between w-full md:w-52 lg:w-64 min-h-[8rem] items-end">
                       <div className="flex flex-row items-start gap-3">
-                        <p className="text-right">{products.name}</p>
+                        <p className="text-right">{product.name}</p>
                         <button
-                          onClick={() => deleteFromCart(products._id)}
+                          onClick={() => deleteFromCart(product._id)}
                           className="text-blue-600 rounded-lg"
                         >
                           <i className="fa-solid fa-trash"></i>
                         </button>
                       </div>
                       <div className="flex flex-row gap-1 justify-end">
-                        <div className="flex rounded-lg w-20 p-2 justify-center bg-blue-600 text-white text-sm">
-                          {products.price}$
+                        <div className="flex rounded-lg w-20 h-9 p-2 justify-center bg-blue-600 text-white text-sm">
+                          {product.price}$
                         </div>
-                        <div className="flex rounded-lg w-8 p-2 justify-center bg-blue-600 text-white text-sm">
-                          {cartProducts.filter((id) => id === products._id).length}
-                        </div>
+                        {isCustom[product._id] || cartProducts[product._id] > 9 ? (
+                          <input
+                            type="number"
+                            className="flex rounded-lg w-12 h-9 p-2 justify-center bg-blue-600 text-white text-sm text-center"
+                            value={
+                              customValues[product._id] !== undefined
+                                ? customValues[product._id]
+                                : cartProducts[product._id]
+                            }
+                            onChange={(e) =>
+                              setCustomValues((prev) => ({
+                                ...prev,
+                                [product._id]: Number(e.target.value) || '',
+                              }))
+                            }
+                            onKeyPress={(e) => {
+                              if (e.key === 'Enter') {
+                                handleCustomInput(product._id, Number(e.target.value));
+                                e.target.blur();
+                              }
+                            }}
+                          />
+                        ) : (
+                          <select
+                            className="flex rounded-lg w-12 h-9 p-2 justify-center bg-blue-600 text-white text-sm"
+                            value={isCustom[product._id] ? 'custom' : cartProducts[product._id]}
+                            onChange={(e) => handleSelectChange(product._id, e.target.value)}
+                          >
+                            {new Array(9).fill().map((_, i) => (
+                              <option key={i} value={i + 1}>
+                                {i + 1}
+                              </option>
+                            ))}
+                            <option value="custom">10+</option>
+                          </select>
+                        )}
                       </div>
                     </div>
                   </div>

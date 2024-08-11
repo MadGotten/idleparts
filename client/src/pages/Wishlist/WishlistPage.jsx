@@ -29,7 +29,7 @@ function WishlistPage() {
                       ></img>
                     </div>
                   </Link>
-                  <div className="flex flex-col justify-between j text-end">
+                  <div className="flex flex-col justify-between text-end">
                     <p>{product.name}</p>
                     <div className="flex justify-end gap-2">
                       <button

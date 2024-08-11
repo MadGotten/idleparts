@@ -38,16 +38,18 @@ function ProductPage() {
         <ProductCard />
       ) : (
         <div className="flex flex-col sm:flex-row w-full gap-4">
-          <div className="flex flex-col md:flex-row gap-x-2 gap-y-4 md:justify-between h-auto w-full sm:w-2/3 p-4 bg-slate-50 shadow-md drop-shadow-md rounded-lg">
-            <div className="flex justify-center md:justify-start md:w-1/2">
+          <div className="flex flex-col md:flex-row gap-x-8 gap-y-4 md:justify-between h-auto w-full sm:w-2/3 p-4 bg-slate-50 shadow-md drop-shadow-md rounded-lg">
+            <div className="flex justify-center md:justify-start w-full md:w-fit">
               <img
                 src={`${import.meta.env.VITE_APP_DOMAIN}/static/${data.img}`}
                 alt="component_image"
-                className="md:max-w-full md:max-h-[220px] h-auto"
+                className="max-h-[180px] md:max-h-[220px] min-w-full max-w-[260px] h-auto object-contain mix-blend-multiply"
               ></img>
             </div>
-            <div className="md:w-1/2">
-              <h1 className="font-semibold text-lg md:text-xl">{data.name}</h1>
+            <div className="w-full">
+              <h1 className="font-semibold text-lg text-center md:text-start md:text-xl">
+                {data.name}
+              </h1>
             </div>
           </div>
           <div className="flex flex-col gap-4 w-full sm:w-1/3 p-4 justify-between bg-slate-50 shadow-md drop-shadow-md rounded-lg">

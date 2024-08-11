@@ -63,7 +63,9 @@ function CartPage() {
   }, [cartProducts, products]);
 
   const buyproducts = async () => {
-    if (user && cartLength > 0) {
+    if (!user) return navigate('/login');
+
+    if (cartLength > 0) {
       setIsUpdating(true);
       const response = await fetch(`${import.meta.env.VITE_APP_DOMAIN}/cart/checkout`, {
         method: 'POST',
@@ -75,8 +77,6 @@ function CartPage() {
       await response?.json();
       setIsUpdating(false);
       clearCart();
-    } else {
-      navigate('/login');
     }
   };
 
@@ -124,7 +124,7 @@ function CartPage() {
                         </div>
                         {isCustom[product._id] || cartProducts[product._id] > 9 ? (
                           <input
-                            type="number"
+                            type="text"
                             className="flex rounded-lg w-12 h-9 p-2 justify-center bg-blue-600 text-white text-sm text-center"
                             value={
                               customValues[product._id] !== undefined

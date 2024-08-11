@@ -7,8 +7,6 @@ export function CartProvider({ children }) {
   const [cartProducts, setCartProducts] = useState({});
   const [cartLength, setCartLength] = useState(0);
 
-  console.log(cartProducts);
-
   useEffect(() => {
     if (cartLength > 0) {
       localcart?.setItem('cart', JSON.stringify(cartProducts));

@@ -25,7 +25,7 @@ function WishlistPage() {
                       <img
                         src={`${import.meta.env.VITE_APP_DOMAIN}/static/${product.img}`}
                         alt={product.name}
-                        className="w-full max-h-full"
+                        className="w-full max-h-full object-contain mix-blend-multiply"
                       ></img>
                     </div>
                   </Link>

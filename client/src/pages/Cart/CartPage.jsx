@@ -111,7 +111,7 @@ function CartPage() {
                       <img
                         src={`${import.meta.env.VITE_APP_DOMAIN}/static/${product.img}`}
                         alt="cpu"
-                        className="min-w-24 w-24 sm:w-28 h-auto object-contain"
+                        className="min-w-24 w-24 sm:w-28 h-auto object-contain mix-blend-multiply"
                       ></img>
                     </Link>
                     <div className="flex flex-col justify-between w-full md:w-52 lg:w-64 min-h-[8rem] items-end">

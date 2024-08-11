@@ -12,7 +12,7 @@ const Product = (props) => {
         <img
           src={`${import.meta.env.VITE_APP_DOMAIN}/static/${product.img}`}
           alt={product.category}
-          className="max-w-full md:max-w-[7rem] h-auto"
+          className="max-w-full md:max-w-[7rem] h-auto mix-blend-multiply"
         />
       </div>
       <div className="w-full flex flex-col justify-end px-2 row-span-2 overflow-hidden">

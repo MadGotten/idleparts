@@ -1,11 +1,12 @@
-import { useState, useContext, useEffect } from 'react';
+import { useState, useContext, useEffect, useMemo } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import CartContext from '@/context/CartContext';
 import AuthContext from '@/context/AuthContext';
 import Spinner from '@/components/Spinner';
 
 function CartPage() {
-  const { cartProducts, cartLength, clearCart, updateProduct } = useContext(CartContext);
+  const { cartProducts, cartLength, clearCart, updateProduct, deleteProduct } =
+    useContext(CartContext);
   const { user } = useContext(AuthContext);
   const [isLoading, setIsLoading] = useState(true);
   const [isUpdating, setIsUpdating] = useState(false);
@@ -33,26 +34,36 @@ function CartPage() {
   };
 
   useEffect(() => {
-    if (cartLength > 0) {
-      setIsLoading(true);
-      fetch(`${import.meta.env.VITE_APP_DOMAIN}/cart`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        mode: 'cors',
-        body: JSON.stringify({ ids: Object.keys(cartProducts) }),
-      })
-        .then((response) => {
+    const fetchProducts = async () => {
+      if (cartLength > 0) {
+        setIsLoading(true);
+        try {
+          const response = await fetch(`${import.meta.env.VITE_APP_DOMAIN}/cart`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            mode: 'cors',
+            body: JSON.stringify({ ids: Object.keys(cartProducts) }),
+          });
+
           if (!response.ok) {
             clearCart();
+            return;
           }
-          return response.json();
-        })
-        .then((data) => setProducts(data.items));
-      setIsLoading(false);
-    } else {
-      setIsLoading(false);
-    }
-  }, [cartProducts]);
+
+          const data = await response.json();
+          setProducts(data.items);
+        } catch (error) {
+          console.error('Failed to fetch products:', error);
+        } finally {
+          setIsLoading(false);
+        }
+      } else {
+        setIsLoading(false);
+      }
+    };
+
+    fetchProducts();
+  }, [cartLength]);
 
   useEffect(() => {
     const amount = products.reduce((sum, product) => {
@@ -80,18 +91,13 @@ function CartPage() {
     }
   };
 
-  const { deleteProduct } = useContext(CartContext);
-  function deleteFromCart(productId) {
-    deleteProduct(productId);
-  }
-
   return (
     <div className="flex flex-col">
+      <h1 className="text-2xl font-semibold mb-4">Cart</h1>
       {isLoading ? (
         <Spinner />
       ) : (
         <>
-          <h1 className="text-2xl font-semibold mb-4">Cart</h1>
           <div className="flex flex-col md:flex-row w-full items-center sm:items-start md:justify-between gap-8 md:gap-4">
             {!cartLength && 'Your cart is empty'}
             {cartLength > 0 && (
@@ -110,9 +116,14 @@ function CartPage() {
                     </Link>
                     <div className="flex flex-col justify-between w-full md:w-52 lg:w-64 min-h-[8rem] items-end">
                       <div className="flex flex-row items-start gap-3">
-                        <p className="text-right">{product.name}</p>
+                        <div>
+                          <p className="text-right">{product.name}</p>
+                          <p className="text-right font-medium text-sm">
+                            In stock: {product.stock}
+                          </p>
+                        </div>
                         <button
-                          onClick={() => deleteFromCart(product._id)}
+                          onClick={() => deleteProduct(product._id)}
                           className="text-blue-600 rounded-lg"
                         >
                           <i className="fa-solid fa-trash"></i>

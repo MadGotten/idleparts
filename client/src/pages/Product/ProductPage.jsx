@@ -1,9 +1,11 @@
 import { useContext, useState } from 'react';
 import { useQuery } from 'react-query';
 import { useParams } from 'react-router';
+import { useNavigate } from 'react-router-dom';
 import ProductCard from '@/components/skeletons/ProductCard';
 import CartContext from '@/context/CartContext';
 import WishlistContext from '@/context/WishlistContext';
+import AuthContext from '@/context/AuthContext';
 
 const getProduct = async (product_id) => {
   const response = await fetch(`${import.meta.env.VITE_APP_DOMAIN}/products/${product_id}`, {
@@ -23,9 +25,12 @@ function ProductPage() {
   );
   const { addProduct } = useContext(CartContext);
   const { addToWishlist } = useContext(WishlistContext);
+  const { user } = useContext(AuthContext);
   const [isUpdating, setIsUpdating] = useState(false);
+  const navigate = useNavigate();
 
   const handleAddToWishlist = async () => {
+    if (!user) return navigate('/login');
     if (isUpdating) return;
     setIsUpdating(true);
     await addToWishlist(product_id);

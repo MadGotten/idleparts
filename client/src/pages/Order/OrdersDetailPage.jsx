@@ -19,7 +19,7 @@ function OrdersDetailPage() {
 
   return (
     <div>
-      <div className="flex flex-col items-start gap-2">
+      <div className="flex flex-col items-start gap-4">
         <h1 className="text-2xl font-semibold break-all">Order #{id}</h1>
         <div className="flex flex-col w-full">
           {status === 'error' || isLoading ? (

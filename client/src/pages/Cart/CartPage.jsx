@@ -92,8 +92,8 @@ function CartPage() {
   };
 
   return (
-    <div className="flex flex-col">
-      <h1 className="text-2xl font-semibold mb-4">Cart</h1>
+    <div className="flex flex-col gap-4">
+      <h1 className="text-2xl font-semibold">Cart</h1>
       {isLoading ? (
         <Spinner />
       ) : (
@@ -202,7 +202,7 @@ function CartPage() {
                       <path d="M10.14,1.16a11,11,0,0,0-9,8.92A1.59,1.59,0,0,0,2.46,12,1.52,1.52,0,0,0,4.11,10.7a8,8,0,0,1,6.66-6.61A1.42,1.42,0,0,0,12,2.69h0A1.57,1.57,0,0,0,10.14,1.16Z" />
                     </svg>
                   ) : (
-                    'Pay now'
+                    'Proceed To Payment'
                   )}
                 </button>
               </div>

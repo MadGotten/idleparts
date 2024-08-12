@@ -7,6 +7,7 @@ export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(() => {
     return JSON.parse(localStorage.getItem('user')) || null;
   });
+  const [userLoaded, setUserLoaded] = useState(false);
 
   const fetchUser = useCallback(async () => {
     try {
@@ -14,8 +15,10 @@ export const AuthProvider = ({ children }) => {
       if (currentUser.credentials) {
         localStorage.setItem('user', JSON.stringify(currentUser.credentials));
         setUser(currentUser.credentials);
+        setUserLoaded(true);
       } else {
         localStorage.removeItem('user');
+        setUser(null);
       }
     } catch (err) {
       console.error('Error fetching user:', err);
@@ -25,10 +28,12 @@ export const AuthProvider = ({ children }) => {
   useEffect(() => {
     if (user) {
       fetchUser();
+    } else {
+      setUserLoaded(true);
     }
-  }, [fetchUser]);
+  }, []);
 
-  const login = (email, password, setAlert) => {
+  const login = useCallback((email, password, setAlert) => {
     loginUser(email, password).then((data) => {
       if (data.credentials) {
         localStorage.setItem('user', JSON.stringify(data.credentials));
@@ -36,9 +41,9 @@ export const AuthProvider = ({ children }) => {
       }
       setAlert(data);
     });
-  };
+  }, []);
 
-  const register = async (email, password, password2, setAlert) => {
+  const register = useCallback(async (email, password, password2, setAlert) => {
     registerUser(email, password, password2).then((data) => {
       if (data.credentials) {
         localStorage.setItem('user', JSON.stringify(data.credentials));
@@ -46,22 +51,23 @@ export const AuthProvider = ({ children }) => {
       }
       setAlert(data);
     });
-  };
+  }, []);
 
-  const logout = () => {
-    setUser(undefined);
+  const logout = useCallback(() => {
+    setUser(null);
     localStorage.removeItem('user');
-  };
+  }, []);
 
   const contextValue = useMemo(
     () => ({
       user,
+      userLoaded,
       setUser,
       login,
       register,
       logout,
     }),
-    [user, login, register, logout]
+    [user, userLoaded, login, register, logout]
   );
 
   return <AuthContext.Provider value={contextValue}>{children}</AuthContext.Provider>;

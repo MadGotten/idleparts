@@ -13,7 +13,7 @@ const Product = require('./models/productModel');
 const Order = require('./models/orderModel');
 const User = require('./models/userModel');
 
-const populateProducts = require('./populate/products.json');
+const dataProducts = require('./data/products.json');
 const users = require('./routes/users');
 const products = require('./routes/products');
 const account = require('./routes/account');
@@ -65,19 +65,22 @@ app.use(
   })
 );
 
+const clearDatabase = () => {
+  Product.deleteMany({}).then(() => {
+    Product.create(dataProducts);
+    console.log('Products populated successfully.');
+  });
+  User.deleteMany({}).exec();
+  Order.deleteMany({}).exec();
+  mongoose.connection.db.collection('sessions').deleteMany({});
+};
+
 mongoose.set('strictQuery', true);
 mongoose
   .connect(process.env.MONGO_URL)
   .then(() => {
     console.log('Db succesfully connected!');
-
-    /*Product.deleteMany({}).then(() => {
-      Product.create(populateProducts);
-      console.log('Products populated successfully.');
-    });
-    User.deleteMany({}).exec();
-    Order.deleteMany({}).exec();
-    mongoose.connection.db.collection('sessions').deleteMany({});*/
+    clearDatabase();
   })
   .then(() => {
     console.log('Documents deleted successfully.');

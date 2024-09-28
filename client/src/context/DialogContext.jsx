@@ -51,7 +51,7 @@ export const DialogProvider = ({ children }) => {
             <dialog
               ref={dialogRef}
               onCancel={handleCancel}
-              className="absolute left-0 top-0 bottom-0 max-w-96 bg-slate-50 shadow-lg drop-shadow-lg rounded-lg p-4 gap-2 flex flex-col items-center justify-between"
+              className="absolute left-0 top-0 bottom-1/4 max-w-96 bg-slate-50 shadow-lg drop-shadow-lg rounded-lg p-4 gap-2 flex flex-col items-center justify-between"
             >
               <div className="w-full flex justify-end text-lg">
                 <button className="hover:text-gray-500" onClick={handleCancel}>

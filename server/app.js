@@ -9,9 +9,9 @@ const csrf = require('csurf');
 const session = require('express-session');
 const cookieParser = require('cookie-parser');
 const MongoStore = require('connect-mongo');
-const Product = require('./models/product.model');
-const Order = require('./models/order.model');
-const User = require('./models/user.model');
+const Product = require('./models/productModel');
+const Order = require('./models/orderModel');
+const User = require('./models/userModel');
 
 const populateProducts = require('./populate/products.json');
 const users = require('./routes/users');
@@ -71,13 +71,13 @@ mongoose
   .then(() => {
     console.log('Db succesfully connected!');
 
-    Product.deleteMany({}).then(() => {
+    /*Product.deleteMany({}).then(() => {
       Product.create(populateProducts);
       console.log('Products populated successfully.');
     });
     User.deleteMany({}).exec();
     Order.deleteMany({}).exec();
-    mongoose.connection.db.collection('sessions').deleteMany({});
+    mongoose.connection.db.collection('sessions').deleteMany({});*/
   })
   .then(() => {
     console.log('Documents deleted successfully.');

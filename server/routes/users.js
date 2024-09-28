@@ -1,6 +1,6 @@
 const express = require('express');
 const csrf = require('csurf');
-const User = require('../models/user.model');
+const User = require('../models/userModel');
 const { body, validationResult } = require('express-validator');
 const bcrypt = require('bcrypt');
 const router = express.Router();

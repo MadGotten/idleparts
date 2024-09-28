@@ -85,9 +85,14 @@ function CartPage() {
         credentials: 'include',
         body: JSON.stringify({ products: cartProducts }),
       });
-      await response?.json();
+      const data = await response?.json();
       setIsUpdating(false);
-      clearCart();
+      if (response.ok) {
+        clearCart();
+        console.log(data.message);
+      } else {
+        console.log(data.message);
+      }
     }
   };
 
@@ -137,6 +142,7 @@ function CartPage() {
                           <input
                             type="text"
                             className="flex rounded-lg w-12 h-9 p-2 justify-center bg-blue-600 text-white text-sm text-center"
+                            autoFocus
                             value={
                               customValues[product._id] !== undefined
                                 ? customValues[product._id]
@@ -154,19 +160,22 @@ function CartPage() {
                                 e.target.blur();
                               }
                             }}
+                            onBlur={(e) => {
+                              handleCustomInput(product._id, Number(e.target.value));
+                            }}
                           />
                         ) : (
                           <select
-                            className="flex rounded-lg w-12 h-9 p-2 justify-center bg-blue-600 text-white text-sm"
+                            className="flex rounded-lg w-12 h-9 p-2 justify-center bg-blue-600 text-white text-sm focus:outline-none"
                             value={isCustom[product._id] ? 'custom' : cartProducts[product._id]}
                             onChange={(e) => handleSelectChange(product._id, e.target.value)}
                           >
-                            {new Array(9).fill().map((_, i) => (
+                            {new Array(product.stock > 9 ? 9 : product.stock).fill().map((_, i) => (
                               <option key={i} value={i + 1}>
                                 {i + 1}
                               </option>
                             ))}
-                            <option value="custom">10+</option>
+                            {product.stock >= 10 && <option value="custom">10+</option>}
                           </select>
                         )}
                       </div>
